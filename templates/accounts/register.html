@@ -1,0 +1,185 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Create Account | JobTrackr</title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/register.css' %}"
+    >
+
+</head>
+
+<body>
+
+<div class="auth-page">
+
+    <div class="auth-card">
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                +
+            </div>
+
+            <div>
+                <h2>JobTrackr</h2>
+
+                <span>
+                    AI-POWERED
+                </span>
+            </div>
+
+        </div>
+
+
+        <div class="register-box">
+
+            <h1>
+                Create your account
+            </h1>
+
+            <p class="subtitle">
+                Start tracking your job search today
+            </p>
+
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+
+                {% if form.non_field_errors %}
+
+                    <div class="form-error">
+                        {{ form.non_field_errors }}
+                    </div>
+
+                {% endif %}
+
+
+                <div class="name-row">
+
+                    <div class="field">
+
+                        <label>
+                            FIRST NAME
+                        </label>
+
+                        {{ form.first_name }}
+
+                        {% for error in form.first_name.errors %}
+                            <small>{{ error }}</small>
+                        {% endfor %}
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label>
+                            LAST NAME
+                        </label>
+
+                        {{ form.last_name }}
+
+                        {% for error in form.last_name.errors %}
+                            <small>{{ error }}</small>
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        EMAIL ADDRESS
+                    </label>
+
+                    {{ form.email }}
+
+                    {% for error in form.email.errors %}
+                        <small>{{ error }}</small>
+                    {% endfor %}
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        PASSWORD
+                    </label>
+
+                    {{ form.password }}
+
+                    {% for error in form.password.errors %}
+                        <small>{{ error }}</small>
+                    {% endfor %}
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        CONFIRM PASSWORD
+                    </label>
+
+                    {{ form.password_confirm }}
+
+                    {% for error in form.password_confirm.errors %}
+                        <small>{{ error }}</small>
+                    {% endfor %}
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="submit-btn"
+                >
+                    Create account
+                </button>
+
+            </form>
+
+
+            <p class="terms">
+                By signing up you agree to our
+                <span>Terms</span> and
+                <span>Privacy Policy</span>
+            </p>
+
+        </div>
+
+
+        <p class="login-link">
+
+            Already have an account?
+
+            <a href="{% url 'login' %}">
+                Sign in
+            </a>
+
+        </p>
+
+    </div>
+
+</div>
+
+</body>
+</html>
