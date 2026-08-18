@@ -1,0 +1,469 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Applications | JobTrackr
+{% endblock %}
+
+
+{% block content %}
+
+<!-- =========================================
+     PAGE HEADER
+========================================= -->
+
+<div class="application-page-header">
+
+    <div>
+        <h1>Applications</h1>
+
+        <p>
+            Track and manage your job applications.
+        </p>
+    </div>
+
+
+    <a
+        href="{% url 'create_application' %}"
+        class="add-application-btn"
+    >
+        <span>+</span>
+        Add Application
+    </a>
+
+</div>
+
+
+<!-- =========================================
+     SEARCH & FILTERS
+========================================= -->
+
+<div class="application-filters">
+
+    <!-- Search -->
+
+    <div class="search-box">
+
+        <span class="search-icon">⌕</span>
+
+        <input
+            type="text"
+            placeholder="Search by role or company..."
+            id="applicationSearch"
+        >
+
+    </div>
+
+
+    <!-- Status -->
+
+    <div class="filter-box">
+
+        <select id="statusFilter">
+
+            <option value="">
+                All Status
+            </option>
+
+            <option value="wishlist">
+                Wishlist
+            </option>
+
+            <option value="applied">
+                Applied
+            </option>
+
+            <option value="screening">
+                Screening
+            </option>
+
+            <option value="interview">
+                Interview
+            </option>
+
+            <option value="selected">
+                Selected
+            </option>
+
+            <option value="rejected">
+                Rejected
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <!-- Category -->
+
+    <div class="filter-box">
+
+        <select id="categoryFilter">
+
+            <option value="">
+                All Categories
+            </option>
+
+            <option value="software">
+                Software Engineering
+            </option>
+
+            <option value="frontend">
+                Frontend Development
+            </option>
+
+            <option value="backend">
+                Backend Development
+            </option>
+
+            <option value="fullstack">
+                Full Stack Development
+            </option>
+
+            <option value="design">
+                UI / UX Design
+            </option>
+
+            <option value="data">
+                Data / AI
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <!-- Location -->
+
+    <div class="filter-box">
+
+        <select id="locationFilter">
+
+            <option value="">
+                All Locations
+            </option>
+
+            <option value="remote">
+                Remote
+            </option>
+
+            <option value="dhaka">
+                Dhaka
+            </option>
+
+            <option value="chittagong">
+                Chittagong
+            </option>
+
+            <option value="usa">
+                United States
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <!-- Sort -->
+
+    <div class="filter-box sort-box">
+
+        <select id="sortFilter">
+
+            <option value="newest">
+                Sort: Date
+            </option>
+
+            <option value="oldest">
+                Oldest First
+            </option>
+
+            <option value="company">
+                Company
+            </option>
+
+            <option value="title">
+                Job Title
+            </option>
+
+        </select>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================
+     APPLICATION LIST
+========================================= -->
+
+<div class="application-list-card">
+
+
+    <!-- LIST HEADER -->
+
+    <div class="list-top">
+
+        <div>
+
+            <h2>
+                All Applications
+            </h2>
+
+            <p>
+                {{ applications|length }}
+                application{{ applications|length|pluralize }}
+            </p>
+
+        </div>
+
+    </div>
+
+
+    {% if applications %}
+
+
+        <!-- TABLE HEADER -->
+
+        <div class="applications-table-header">
+
+            <span>JOB</span>
+
+            <span>COMPANY</span>
+
+            <span>LOCATION</span>
+
+            <span>DATE</span>
+
+            <span>STATUS</span>
+
+            <span>ACTIONS</span>
+
+        </div>
+
+
+        <!-- APPLICATIONS -->
+
+        <div id="applicationsContainer">
+
+            {% for application in applications %}
+
+                <div
+                    class="application-row"
+                    data-title="{{ application.job_title|lower }}"
+                    data-company="{{ application.company_name|lower }}"
+                    data-status="{{ application.status }}"
+                    data-location="{{ application.location|lower }}"
+                >
+
+
+                    <!-- JOB -->
+
+                    <div class="job-info">
+
+                        <strong>
+                            {{ application.job_title }}
+                        </strong>
+
+                        {% if application.job_description %}
+
+                            <small>
+                                {{ application.job_description|truncatechars:70 }}
+                            </small>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- COMPANY -->
+
+                    <div class="company-name">
+
+                        <span class="company-avatar">
+
+                            {{ application.company_name|first|upper }}
+
+                        </span>
+
+                        <span>
+                            {{ application.company_name }}
+                        </span>
+
+                    </div>
+
+
+                    <!-- LOCATION -->
+
+                    <div class="location">
+
+                        {{ application.location|default:"Not specified" }}
+
+                    </div>
+
+
+                    <!-- DATE -->
+
+                    <div class="application-date">
+
+                        {{ application.application_date|date:"Y-m-d"|default:"—" }}
+
+                    </div>
+
+
+                    <!-- STATUS -->
+
+                    <div>
+
+                        <span
+                            class="application-status {{ application.status }}"
+                        >
+
+                            {{ application.get_status_display }}
+
+                        </span>
+
+                    </div>
+
+
+                    <!-- ACTIONS -->
+
+                    <div class="application-actions">
+
+
+                        <!-- AI -->
+
+                        <a
+                            href="#"
+                            class="action-btn ai-action"
+                            title="AI Analysis"
+                        >
+
+                            <span class="action-icon">✦</span>
+
+                            <span class="action-label">
+                                AI
+                            </span>
+
+                        </a>
+
+
+                        <!-- VIEW -->
+
+                        <a
+                            href="#"
+                            class="action-btn view-action"
+                            title="View Application"
+                        >
+
+                            <span class="action-icon">◉</span>
+
+                        </a>
+
+
+                        <!-- EDIT -->
+
+                        <a
+                            href="#"
+                            class="action-btn edit-action"
+                            title="Edit Application"
+                        >
+
+                            <span class="action-icon">✎</span>
+
+                        </a>
+
+
+                        <!-- DELETE -->
+
+                        <button
+                            type="button"
+                            class="action-btn delete-action"
+                            title="Delete Application"
+                        >
+
+                            <span class="action-icon">♧</span>
+
+                        </button>
+
+
+                    </div>
+
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+
+        <!-- NO SEARCH RESULT -->
+
+        <div
+            id="noResults"
+            class="no-results"
+            style="display: none;"
+        >
+
+            <div class="no-results-icon">
+                ⌕
+            </div>
+
+            <h3>
+                No applications found
+            </h3>
+
+            <p>
+                Try changing your search or filters.
+            </p>
+
+        </div>
+
+
+    {% else %}
+
+
+        <!-- EMPTY STATE -->
+
+        <div class="empty-state">
+
+            <div class="empty-icon">
+                +
+            </div>
+
+            <h3>
+                No applications yet
+            </h3>
+
+            <p>
+                Start tracking your job search by adding
+                your first application.
+            </p>
+
+            <a
+                href="{% url 'create_application' %}"
+                class="add-application-btn"
+            >
+
+                <span>+</span>
+
+                Add Application
+
+            </a>
+
+        </div>
+
+
+    {% endif %}
+
+
+</div>
+
+
+<!-- =========================================
+      JS
+========================================= -->
+
+<script src="{% static 'js/application-list.js' %}"></script>
+
+{% endblock %}
