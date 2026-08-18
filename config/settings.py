@@ -29,6 +29,9 @@ DEBUG = config("DEBUG",cast=bool)
 ALLOWED_HOSTS = []
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'dashboard'
+LOGOUT_REDIRECT_URL = 'login'
 
 
 # Application definition

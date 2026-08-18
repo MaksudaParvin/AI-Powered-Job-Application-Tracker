@@ -1,0 +1,397 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Dashboard | JobTrackr
+{% endblock %}
+
+
+{% block content %}
+
+<div class="dashboard-header">
+
+    <div>
+
+        <h1>
+            Good morning,
+            {{ request.user.first_name }}
+        </h1>
+
+        <p>
+            Here's your job search at a glance —
+            {% now "D, M d Y" %}
+        </p>
+
+    </div>
+
+
+    <a href="#" class="add-application-btn">
+
+        <span>+</span>
+
+        Add Application
+
+    </a>
+
+</div>
+
+
+<!-- Statistics -->
+
+<div class="stats-grid">
+
+    <div class="dashboard-card">
+
+        <div class="card-label">
+            TOTAL APPLICATIONS
+        </div>
+
+        <div class="card-number">
+            6
+        </div>
+
+        <div class="card-description">
+            +2 this week
+        </div>
+
+    </div>
+
+
+    <div class="dashboard-card">
+
+        <div class="card-label">
+            ACTIVE PIPELINE
+        </div>
+
+        <div class="card-number blue">
+            4
+        </div>
+
+        <div class="card-description">
+            In progress
+        </div>
+
+    </div>
+
+
+    <div class="dashboard-card">
+
+        <div class="card-label">
+            INTERVIEWS SCHEDULED
+        </div>
+
+        <div class="card-number orange">
+            2
+        </div>
+
+        <div class="card-description">
+            Upcoming
+        </div>
+
+    </div>
+
+
+    <div class="dashboard-card">
+
+        <div class="card-label">
+            OFFERS RECEIVED
+        </div>
+
+        <div class="card-number green">
+            1
+        </div>
+
+        <div class="card-description">
+            Pending decision
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- Middle Section -->
+
+<div class="dashboard-middle">
+
+
+    <!-- Application Status -->
+
+    <div class="panel status-panel">
+
+        <div class="panel-header">
+
+            <div>
+
+                <h2>
+                    Applications by Status
+                </h2>
+
+                <p>
+                    Funnel overview across all stages
+                </p>
+
+            </div>
+
+            <a href="#">
+                View all →
+            </a>
+
+        </div>
+
+
+        <div class="status-bars">
+
+            <div class="status-column">
+
+                <span>1</span>
+
+                <div class="bar wishlist"></div>
+
+                <small>WISHLIST</small>
+
+            </div>
+
+
+            <div class="status-column">
+
+                <span>1</span>
+
+                <div class="bar applied"></div>
+
+                <small>APPLIED</small>
+
+            </div>
+
+
+            <div class="status-column">
+
+                <span>1</span>
+
+                <div class="bar screening"></div>
+
+                <small>SCREENING</small>
+
+            </div>
+
+
+            <div class="status-column">
+
+                <span>1</span>
+
+                <div class="bar interview"></div>
+
+                <small>INTERVIEW</small>
+
+            </div>
+
+
+            <div class="status-column">
+
+                <span>1</span>
+
+                <div class="bar selected"></div>
+
+                <small>SELECTED</small>
+
+            </div>
+
+
+            <div class="status-column">
+
+                <span>1</span>
+
+                <div class="bar rejected"></div>
+
+                <small>REJECTED</small>
+
+            </div>
+
+        </div>
+
+
+        <div class="pipeline">
+
+            <label>
+                PIPELINE FLOW
+            </label>
+
+            <div class="pipeline-bar">
+
+                <span class="wishlist"></span>
+                <span class="applied"></span>
+                <span class="screening"></span>
+                <span class="interview"></span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Upcoming Interviews -->
+
+    <div class="panel interviews-panel">
+
+        <div class="panel-header">
+
+            <h2>
+                Upcoming Interviews
+            </h2>
+
+        </div>
+
+
+        <div class="interview-item">
+
+            <div>
+
+                <strong>Linear</strong>
+
+                <span>
+                    Product Designer
+                </span>
+
+                <small>
+                    🗓 2026-08-20 · 11:00 AM
+                </small>
+
+            </div>
+
+            <label>
+                Video Call
+            </label>
+
+        </div>
+
+
+        <div class="interview-item">
+
+            <div>
+
+                <strong>Vercel</strong>
+
+                <span>
+                    Senior Frontend Engineer
+                </span>
+
+                <small>
+                    🗓 2026-08-22 · 3:00 PM
+                </small>
+
+            </div>
+
+            <label>
+                Video Call
+            </label>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- Recent Applications -->
+
+<div class="panel recent-panel">
+
+    <div class="panel-header">
+
+        <h2>
+            Recent Applications
+        </h2>
+
+        <a href="#">
+            View all →
+        </a>
+
+    </div>
+
+
+    <div class="application-table">
+
+        <div class="table-header">
+
+            <span>ROLE</span>
+            <span>COMPANY</span>
+            <span>LOCATION</span>
+            <span>DATE</span>
+            <span>STATUS</span>
+
+        </div>
+
+
+        <div class="table-row">
+
+            <div>
+                <strong>Staff Engineer</strong>
+
+                <small>
+                    Distributed Systems · Payments
+                </small>
+            </div>
+
+            <span>Stripe</span>
+
+            <span>Remote</span>
+
+            <span>2026-08-12</span>
+
+            <label class="status selected">
+                • SELECTED
+            </label>
+
+        </div>
+
+
+        <div class="table-row">
+
+            <div>
+                <strong>Senior Frontend Engineer</strong>
+
+                <small>
+                    React · TypeScript
+                </small>
+            </div>
+
+            <span>Vercel</span>
+
+            <span>Remote</span>
+
+            <span>2026-08-10</span>
+
+            <label class="status interview">
+                • INTERVIEW
+            </label>
+
+        </div>
+
+
+        <div class="table-row">
+
+            <div>
+                <strong>Product Designer</strong>
+
+                <small>
+                    Figma · Systems Design
+                </small>
+            </div>
+
+            <span>Linear</span>
+
+            <span>San Francisco, CA</span>
+
+            <span>2026-08-08</span>
+
+            <label class="status screening">
+                • SCREENING
+            </label>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
