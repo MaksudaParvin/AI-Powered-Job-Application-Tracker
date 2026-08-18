@@ -17,7 +17,7 @@ Including another URLconf
 from django.urls import path
 
 from accounts.views import (register_view, login_view, logout_view, dashboard_view)
-
+from applications.views import (create_application_view, application_list_view)
 
 urlpatterns = [
 
@@ -29,6 +29,10 @@ urlpatterns = [
 
     path('', dashboard_view,  name='dashboard'),   
 
-    path('dashboard/', dashboard_view,  name='dashboard'), 
+    path('dashboard/', dashboard_view,  name='dashboard'),
+
+    path('create/', create_application_view,  name='create_application'), 
+
+    path('list/', application_list_view,  name='application_list'),  
 
 ]

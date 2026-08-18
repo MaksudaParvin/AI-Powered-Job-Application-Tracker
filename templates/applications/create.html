@@ -1,0 +1,220 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Add Application | JobTrackr
+{% endblock %}
+
+
+{% block content %}
+
+<div class="page-header">
+
+    <div>
+        <h1>Add Application</h1>
+
+        <p>
+            Track a new job opportunity from your pipeline.
+        </p>
+    </div>
+
+</div>
+
+
+<div class="application-form-card">
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+
+        {% if form.non_field_errors %}
+
+            <div class="form-errors">
+                {{ form.non_field_errors }}
+            </div>
+
+        {% endif %}
+
+
+        <!-- Job Information -->
+
+        <div class="form-section">
+
+            <div class="section-heading">
+
+                <h2>Job Information</h2>
+
+                <p>
+                    Enter the basic information about the position.
+                </p>
+
+            </div>
+
+
+            <div class="form-grid">
+
+
+                <!-- Job Title -->
+
+                <div class="form-group">
+
+                    <label for="{{ form.job_title.id_for_label }}">
+                        JOB TITLE
+                    </label>
+
+                    {{ form.job_title }}
+
+                    {% for error in form.job_title.errors %}
+                        <small class="field-error">
+                            {{ error }}
+                        </small>
+                    {% endfor %}
+
+                </div>
+
+
+                <!-- Company -->
+
+                <div class="form-group">
+
+                    <label for="{{ form.company_name.id_for_label }}">
+                        COMPANY NAME
+                    </label>
+
+                    {{ form.company_name }}
+
+                    {% for error in form.company_name.errors %}
+                        <small class="field-error">
+                            {{ error }}
+                        </small>
+                    {% endfor %}
+
+                </div>
+
+
+                <!-- Location -->
+
+                <div class="form-group">
+
+                    <label for="{{ form.location.id_for_label }}">
+                        LOCATION
+                    </label>
+
+                    {{ form.location }}
+
+                </div>
+
+
+                <!-- Salary -->
+
+                <div class="form-group">
+
+                    <label for="{{ form.salary.id_for_label }}">
+                        SALARY
+                    </label>
+
+                    {{ form.salary }}
+
+                </div>
+
+
+                <!-- Job URL -->
+
+                <div class="form-group full-width">
+
+                    <label for="{{ form.job_url.id_for_label }}">
+                        JOB URL
+                    </label>
+
+                    {{ form.job_url }}
+
+                </div>
+
+
+                <!-- Application Date -->
+
+                <div class="form-group">
+
+                    <label for="{{ form.application_date.id_for_label }}">
+                        APPLICATION DATE
+                    </label>
+
+                    {{ form.application_date }}
+
+                </div>
+
+
+                <!-- Status -->
+
+                <div class="form-group">
+
+                    <label for="{{ form.status.id_for_label }}">
+                        STATUS
+                    </label>
+
+                    {{ form.status }}
+
+                </div>
+
+
+                <!-- Job Description -->
+
+                <div class="form-group full-width">
+
+                    <label for="{{ form.job_description.id_for_label }}">
+                        JOB DESCRIPTION
+                    </label>
+
+                    {{ form.job_description }}
+
+                    <p class="field-hint">
+                        You can use this description later
+                        with the AI Job Description Analyzer.
+                    </p>
+
+                </div>
+
+
+                <!-- Notes -->
+
+                <div class="form-group full-width">
+
+                    <label for="{{ form.notes.id_for_label }}">
+                        NOTES
+                    </label>
+
+                    {{ form.notes }}
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Actions -->
+
+        <div class="form-actions">
+
+            <a
+                href="{% url 'dashboard' %}"
+                class="cancel-btn"
+            >
+                Cancel
+            </a>
+
+            <button
+                type="submit"
+                class="save-btn"
+            >
+                Save Application
+            </button>
+
+        </div>
+
+
+    </form>
+
+</div>
+
+{% endblock %}
