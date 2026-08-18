@@ -38,7 +38,11 @@ Applications | JobTrackr
      SEARCH & FILTERS
 ========================================= -->
 
-<div class="application-filters">
+<form
+    method="GET"
+    class="application-filters"
+    id="filterForm"
+>
 
     <!-- Search -->
 
@@ -48,8 +52,11 @@ Applications | JobTrackr
 
         <input
             type="text"
+            name="search"
+            id="searchInput"
+            value="{{ search }}"
             placeholder="Search by role or company..."
-            id="applicationSearch"
+            autocomplete="off"
         >
 
     </div>
@@ -59,33 +66,37 @@ Applications | JobTrackr
 
     <div class="filter-box">
 
-        <select id="statusFilter">
+        <select name="status" id="statusFilter">
 
-            <option value="">
-                All Status
-            </option>
+            <option value="">All Status</option>
 
-            <option value="wishlist">
+            <option value="wishlist"
+                {% if selected_status == 'wishlist' %}selected{% endif %}>
                 Wishlist
             </option>
 
-            <option value="applied">
+            <option value="applied"
+                {% if selected_status == 'applied' %}selected{% endif %}>
                 Applied
             </option>
 
-            <option value="screening">
+            <option value="screening"
+                {% if selected_status == 'screening' %}selected{% endif %}>
                 Screening
             </option>
 
-            <option value="interview">
+            <option value="interview"
+                {% if selected_status == 'interview' %}selected{% endif %}>
                 Interview
             </option>
 
-            <option value="selected">
+            <option value="selected"
+                {% if selected_status == 'selected' %}selected{% endif %}>
                 Selected
             </option>
 
-            <option value="rejected">
+            <option value="rejected"
+                {% if selected_status == 'rejected' %}selected{% endif %}>
                 Rejected
             </option>
 
@@ -98,34 +109,43 @@ Applications | JobTrackr
 
     <div class="filter-box">
 
-        <select id="categoryFilter">
+        <select name="category" id="categoryFilter">
 
-            <option value="">
-                All Categories
-            </option>
+            <option value="">All Categories</option>
 
-            <option value="software">
+            <option value="software"
+                {% if selected_category == 'software' %}selected{% endif %}>
                 Software Engineering
             </option>
 
-            <option value="frontend">
+            <option value="frontend"
+                {% if selected_category == 'frontend' %}selected{% endif %}>
                 Frontend Development
             </option>
 
-            <option value="backend">
+            <option value="backend"
+                {% if selected_category == 'backend' %}selected{% endif %}>
                 Backend Development
             </option>
 
-            <option value="fullstack">
+            <option value="fullstack"
+                {% if selected_category == 'fullstack' %}selected{% endif %}>
                 Full Stack Development
             </option>
 
-            <option value="design">
+            <option value="design"
+                {% if selected_category == 'design' %}selected{% endif %}>
                 UI / UX Design
             </option>
 
-            <option value="data">
+            <option value="data"
+                {% if selected_category == 'data' %}selected{% endif %}>
                 Data / AI
+            </option>
+
+            <option value="other"
+                {% if selected_category == 'other' %}selected{% endif %}>
+                Other
             </option>
 
         </select>
@@ -137,25 +157,27 @@ Applications | JobTrackr
 
     <div class="filter-box">
 
-        <select id="locationFilter">
+        <select name="location" id="locationFilter">
 
-            <option value="">
-                All Locations
-            </option>
+            <option value="">All Locations</option>
 
-            <option value="remote">
+            <option value="remote"
+                {% if selected_location == 'remote' %}selected{% endif %}>
                 Remote
             </option>
 
-            <option value="dhaka">
+            <option value="dhaka"
+                {% if selected_location == 'dhaka' %}selected{% endif %}>
                 Dhaka
             </option>
 
-            <option value="chittagong">
+            <option value="chittagong"
+                {% if selected_location == 'chittagong' %}selected{% endif %}>
                 Chittagong
             </option>
 
-            <option value="usa">
+            <option value="usa"
+                {% if selected_location == 'usa' %}selected{% endif %}>
                 United States
             </option>
 
@@ -166,32 +188,35 @@ Applications | JobTrackr
 
     <!-- Sort -->
 
-    <div class="filter-box sort-box">
+    <div class="filter-box">
 
-        <select id="sortFilter">
+        <select name="sort" id="sortFilter">
 
-            <option value="newest">
-                Sort: Date
+            <option value="newest"
+                {% if selected_sort == 'newest' %}selected{% endif %}>
+                Sort: Newest
             </option>
 
-            <option value="oldest">
-                Oldest First
+            <option value="oldest"
+                {% if selected_sort == 'oldest' %}selected{% endif %}>
+                Sort: Oldest
             </option>
 
-            <option value="company">
-                Company
+            <option value="company"
+                {% if selected_sort == 'company' %}selected{% endif %}>
+                Sort: Company
             </option>
 
-            <option value="title">
-                Job Title
+            <option value="title"
+                {% if selected_sort == 'title' %}selected{% endif %}>
+                Sort: Job Title
             </option>
 
         </select>
 
     </div>
 
-</div>
-
+</form>
 
 <!-- =========================================
      APPLICATION LIST
@@ -265,13 +290,11 @@ Applications | JobTrackr
                             {{ application.job_title }}
                         </strong>
 
-                        {% if application.job_description %}
+                        <small>
+                            {{ application.get_category_display }}
+                        </small>
 
-                            <small>
-                                {{ application.job_description|truncatechars:70 }}
-                            </small>
 
-                        {% endif %}
 
                     </div>
 

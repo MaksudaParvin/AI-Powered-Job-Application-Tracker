@@ -1,121 +1,57 @@
+const filterForm =
+    document.getElementById("filterForm");
+
 const searchInput =
-    document.getElementById("applicationSearch");
+    document.getElementById("searchInput");
 
-const statusFilter =
-    document.getElementById("statusFilter");
-
-const categoryFilter =
-    document.getElementById("categoryFilter");
-
-const locationFilter =
-    document.getElementById("locationFilter");
-
-const sortFilter =
-    document.getElementById("sortFilter");
-
-const rows =
-    document.querySelectorAll(".application-row");
-
-const noResults =
-    document.getElementById("noResults");
+const filterSelects =
+    document.querySelectorAll(
+        "#statusFilter, #categoryFilter, #locationFilter, #sortFilter"
+    );
 
 
-function filterApplications() {
+// ========================================
+// SELECT FILTERS
+// ========================================
 
-    const search =
-        searchInput.value.toLowerCase().trim();
+filterSelects.forEach(select => {
 
-    const status =
-        statusFilter.value.toLowerCase();
+    select.addEventListener(
+        "change",
+        () => {
 
-    const location =
-        locationFilter.value.toLowerCase();
+            filterForm.submit();
 
-
-    let visibleCount = 0;
-
-
-    rows.forEach(row => {
-
-        const title =
-            row.dataset.title || "";
-
-        const company =
-            row.dataset.company || "";
-
-        const rowStatus =
-            row.dataset.status || "";
-
-        const rowLocation =
-            row.dataset.location || "";
-
-
-        const matchesSearch =
-            title.includes(search) ||
-            company.includes(search);
-
-
-        const matchesStatus =
-            !status ||
-            rowStatus === status;
-
-
-        const matchesLocation =
-            !location ||
-            rowLocation.includes(location);
-
-
-        const visible =
-            matchesSearch &&
-            matchesStatus &&
-            matchesLocation;
-
-
-        row.style.display =
-            visible ? "grid" : "none";
-
-
-        if (visible) {
-            visibleCount++;
         }
+    );
 
-    });
+});
 
 
-    if (noResults) {
+// ========================================
+// SEARCH
+// ========================================
 
-        noResults.style.display =
-            visibleCount === 0
-                ? "block"
-                : "none";
+searchInput.addEventListener(
+    "input",
+    () => {
+        filterForm.submit();
+    }
+);
+
+window.addEventListener(
+    "load",
+    () => {
+
+        searchInput.focus();
+
+        searchInput.setSelectionRange(
+            searchInput.value.length,
+            searchInput.value.length
+        );
 
     }
-
-}
-
-
-if (searchInput) {
-    searchInput.addEventListener(
-        "input",
-        filterApplications
-    );
-}
-
-
-if (statusFilter) {
-    statusFilter.addEventListener(
-        "change",
-        filterApplications
-    );
-}
-
-
-if (locationFilter) {
-    locationFilter.addEventListener(
-        "change",
-        filterApplications
-    );
-}
+);
 
 
 // DELETE MODAL

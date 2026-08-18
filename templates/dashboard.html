@@ -309,88 +309,241 @@ Dashboard | JobTrackr
     </div>
 
 
-    <div class="application-table">
+    {% if applications %}
 
-        <div class="table-header">
 
-            <span>ROLE</span>
+        <!-- TABLE HEADER -->
+
+        <div class="applications-table-header">
+
+            <span>JOB</span>
+
             <span>COMPANY</span>
+
             <span>LOCATION</span>
+
             <span>DATE</span>
+
             <span>STATUS</span>
 
+            <span>ACTIONS</span>
+
         </div>
 
 
-        <div class="table-row">
+        <!-- APPLICATIONS -->
 
-            <div>
-                <strong>Staff Engineer</strong>
+        <div id="applicationsContainer">
 
-                <small>
-                    Distributed Systems · Payments
-                </small>
+            {% for application in applications %}
+
+                <div
+                    class="application-row"
+                    data-title="{{ application.job_title|lower }}"
+                    data-company="{{ application.company_name|lower }}"
+                    data-status="{{ application.status }}"
+                    data-location="{{ application.location|lower }}"
+                >
+
+
+                    <!-- JOB -->
+
+                    <div class="job-info">
+
+                        <strong>
+                            {{ application.job_title }}
+                        </strong>
+
+                        <small>
+                            {{ application.get_category_display }}
+                        </small>
+
+
+
+                    </div>
+
+
+                    <!-- COMPANY -->
+
+                    <div class="company-name">
+
+                        <span class="company-avatar">
+
+                            {{ application.company_name|first|upper }}
+
+                        </span>
+
+                        <span>
+                            {{ application.company_name }}
+                        </span>
+
+                    </div>
+
+
+                    <!-- LOCATION -->
+
+                    <div class="location">
+
+                        {{ application.location|default:"Not specified" }}
+
+                    </div>
+
+
+                    <!-- DATE -->
+
+                    <div class="application-date">
+
+                        {{ application.application_date|date:"Y-m-d"|default:"—" }}
+
+                    </div>
+
+
+                    <!-- STATUS -->
+
+                    <div>
+
+                        <span
+                            class="application-status {{ application.status }}"
+                        >
+
+                            {{ application.get_status_display }}
+
+                        </span>
+
+                    </div>
+
+
+                    <!-- ACTIONS -->
+
+                    <div class="application-actions">
+
+
+                        <!-- AI -->
+
+                        <a
+                            href="#"
+                            class="action-btn ai-action"
+                            title="AI Analysis"
+                        >
+
+                            <span class="action-icon">✦</span>
+
+                            <span class="action-label">
+                                AI
+                            </span>
+
+                        </a>
+
+
+                        <!-- VIEW -->
+
+                        <a
+                            href="{% url 'application_detail' application.pk %}"
+                            class="action-btn view-action"
+                            title="View Application"
+                        >
+
+                            <span class="action-icon">◉</span>
+
+                        </a>
+
+
+                        <!-- EDIT -->
+
+                        <a
+                            href="{% url 'edit_application' application.pk %}"
+                            class="action-btn edit-action"
+                            title="Edit Application"
+                        >
+
+                            <span class="action-icon">✎</span>
+
+                        </a>
+
+
+                        <!-- DELETE -->
+
+                        <button
+                            type="button"
+                            class="action-btn delete-action"
+                            title="Delete Application"
+                            data-id="{{ application.pk }}"
+                            data-title="{{ application.job_title }}"
+                        >
+
+                            <span class="action-icon">♧</span>
+
+                        </button>
+
+
+                    </div>
+
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+
+        <!-- NO SEARCH RESULT -->
+
+        <div
+            id="noResults"
+            class="no-results"
+            style="display: none;"
+        >
+
+            <div class="no-results-icon">
+                ⌕
             </div>
 
-            <span>Stripe</span>
+            <h3>
+                No applications found
+            </h3>
 
-            <span>Remote</span>
-
-            <span>2026-08-12</span>
-
-            <label class="status selected">
-                • SELECTED
-            </label>
+            <p>
+                Try changing your search or filters.
+            </p>
 
         </div>
 
 
-        <div class="table-row">
+    {% else %}
 
-            <div>
-                <strong>Senior Frontend Engineer</strong>
 
-                <small>
-                    React · TypeScript
-                </small>
+        <!-- EMPTY STATE -->
+
+        <div class="empty-state">
+
+            <div class="empty-icon">
+                +
             </div>
 
-            <span>Vercel</span>
+            <h3>
+                No applications yet
+            </h3>
 
-            <span>Remote</span>
+            <p>
+                Start tracking your job search by adding
+                your first application.
+            </p>
 
-            <span>2026-08-10</span>
+            <a
+                href="{% url 'create_application' %}"
+                class="add-application-btn"
+            >
 
-            <label class="status interview">
-                • INTERVIEW
-            </label>
+                <span>+</span>
 
-        </div>
+                Add Application
 
-
-        <div class="table-row">
-
-            <div>
-                <strong>Product Designer</strong>
-
-                <small>
-                    Figma · Systems Design
-                </small>
-            </div>
-
-            <span>Linear</span>
-
-            <span>San Francisco, CA</span>
-
-            <span>2026-08-08</span>
-
-            <label class="status screening">
-                • SCREENING
-            </label>
+            </a>
 
         </div>
 
-    </div>
+
+    {% endif %}
 
 </div>
 

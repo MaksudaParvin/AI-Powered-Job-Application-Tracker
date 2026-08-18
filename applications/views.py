@@ -7,6 +7,8 @@ from .models import JobApplication
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
 
+from django.db.models import Q
+
 
 @login_required
 def create_application_view(request):
@@ -47,11 +49,106 @@ def application_list_view(request):
         user=request.user
     )
 
+    # Search
+    search = request.GET.get(
+        'search',
+        ''
+    ).strip()
+
+    if search:
+
+        applications = applications.filter(
+            Q(job_title__icontains=search) |
+            Q(company_name__icontains=search)
+        )
+
+
+    # Status
+    status = request.GET.get(
+        'status',
+        ''
+    )
+
+    if status:
+
+        applications = applications.filter(
+            status=status
+        )
+
+
+    # Category
+    category = request.GET.get(
+        'category',
+        ''
+    )
+
+    if category:
+
+        applications = applications.filter(
+            category=category
+        )
+
+
+    # Location
+    location = request.GET.get(
+        'location',
+        ''
+    ).strip()
+
+    if location:
+
+        applications = applications.filter(
+            location__icontains=location
+        )
+
+
+    # Sorting
+    sort = request.GET.get(
+        'sort',
+        'newest'
+    )
+
+    if sort == 'oldest':
+
+        applications = applications.order_by(
+            'application_date'
+        )
+
+    elif sort == 'company':
+
+        applications = applications.order_by(
+            'company_name'
+        )
+
+    elif sort == 'title':
+
+        applications = applications.order_by(
+            'job_title'
+        )
+
+    else:
+
+        applications = applications.order_by(
+            '-application_date',
+            '-created_at'
+        )
+
+
     return render(
         request,
         'applications/list.html',
         {
-            'applications': applications
+            'applications': applications,
+
+            'search': search,
+
+            'selected_status': status,
+
+            'selected_category': category,
+
+            'selected_location': location,
+
+            'selected_sort': sort,
         }
     )
 

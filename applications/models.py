@@ -13,6 +13,16 @@ class JobApplication(models.Model):
         ('rejected', 'Rejected'),
     ]
 
+    CATEGORY_CHOICES = [
+        ('software', 'Software Engineering'),
+        ('frontend', 'Frontend Development'),
+        ('backend', 'Backend Development'),
+        ('fullstack', 'Full Stack Development'),
+        ('design', 'UI / UX Design'),
+        ('data', 'Data / AI'),
+        ('other', 'Other'),
+    ]
+
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
@@ -45,6 +55,12 @@ class JobApplication(models.Model):
     application_date = models.DateField(
         null=True,
         blank=True
+    )
+
+    category = models.CharField(
+        max_length=30,
+        choices=CATEGORY_CHOICES,
+        default='other'
     )
 
     status = models.CharField(

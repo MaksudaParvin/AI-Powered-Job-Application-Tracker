@@ -16,6 +16,7 @@ class JobApplicationForm(forms.ModelForm):
             'job_url',
             'application_date',
             'status',
+            'category',
             'notes',
         ]
 
