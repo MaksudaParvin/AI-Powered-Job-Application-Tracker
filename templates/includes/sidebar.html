@@ -21,16 +21,6 @@
     </div>
 
 
-    {% comment %} <!-- Add Application -->
-    <div class="sidebar-action">
-
-        <a href="#">
-            <span class="plus-icon">+</span>
-            New Application
-        </a>
-
-    </div> {% endcomment %}
-
 
     <!-- Navigation -->
     <nav class="sidebar-nav">
@@ -49,6 +39,14 @@
 
             <span class="nav-icon">▱</span>
             <span>Applications</span>
+
+        </a>
+
+        <a href="{% url 'interview_list' %}"
+           class="nav-item {% if request.resolver_match.url_name == 'interview_list' %}active{% endif %}">
+
+            <span class="nav-icon">+</span>
+            <span>Interviews</span>
 
         </a>
 

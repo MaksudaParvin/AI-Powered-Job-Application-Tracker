@@ -2,12 +2,12 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
 from .forms import JobApplicationForm
-from .models import JobApplication
+from .models import JobApplication, Interview
 
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
 
-from django.db.models import Q
+from django.db.models import Q, Count
 
 
 @login_required
@@ -236,4 +236,96 @@ def delete_application_view(request, pk):
     return redirect(
         'application_detail',
         pk=application.pk
+    )
+
+
+
+@login_required
+def dashboard_view(request):
+
+    user = request.user
+
+    applications = JobApplication.objects.filter(
+        user=request.user
+    )
+
+    # Total Applications
+    total_applications = JobApplication.objects.filter(
+        user=user
+    ).count()
+
+
+    # Applications by Status
+    status_counts = JobApplication.objects.filter(
+        user=user
+    ).values(
+        'status'
+    ).annotate(
+        count=Count('id')
+    )
+
+
+    status_data = {
+        'wishlist': 0,
+        'applied': 0,
+        'screening': 0,
+        'interview': 0,
+        'selected': 0,
+        'rejected': 0,
+    }
+
+
+    for item in status_counts:
+
+        status_data[item['status']] = item['count']
+
+
+    # Recent Applications
+    recent_applications = JobApplication.objects.filter(
+        user=user
+    ).order_by(
+        '-created_at'
+    )[:5]
+
+
+    context = {
+
+        'total_applications':
+            total_applications,
+
+        'applications': applications,
+
+        'status_data':
+            status_data,
+
+        'recent_applications':
+            recent_applications,
+
+    }
+
+
+    return render(
+        request,
+        'dashboard.html',
+        context
+    )
+
+
+def interview_list_view(request):
+
+    interviews = Interview.objects.filter(
+        application__user=request.user
+    ).select_related(
+        'application'
+    ).order_by(
+        'interview_date',
+        'interview_time'
+    )
+
+    return render(
+        request,
+        'interviews/interview_list.html',
+        {
+            'interviews': interviews
+        }
     )

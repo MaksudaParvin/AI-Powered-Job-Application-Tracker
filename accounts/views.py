@@ -66,11 +66,3 @@ def logout_view(request):
 
     return redirect('login')
 
-
-@login_required
-def dashboard_view(request):
-
-    return render(
-        request,
-        'dashboard.html'
-    )

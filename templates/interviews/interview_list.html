@@ -1,0 +1,293 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+Interviews | JobTrackr
+{% endblock %}
+
+
+{% block content %}
+
+<div class="interviews-page">
+
+
+    <!-- =====================================
+         PAGE HEADER
+    ====================================== -->
+
+    <div class="interviews-header">
+
+        <div>
+
+            <h1>
+                Interviews
+            </h1>
+
+            <p>
+                Manage and prepare for your upcoming interviews.
+            </p>
+
+        </div>
+
+
+        <a
+            {% comment %} href="{% url 'interview_create' %}" {% endcomment %}
+            class="add-interview-btn"
+        >
+            <span>+</span>
+            Add Interview
+        </a>
+
+    </div>
+
+
+    <!-- =====================================
+         SUMMARY
+    ====================================== -->
+
+    <div class="interview-summary">
+
+        <div class="interview-summary-card">
+
+            <span class="summary-label">
+                TOTAL INTERVIEWS
+            </span>
+
+            <strong>
+                {{ interviews|length }}
+            </strong>
+
+        </div>
+
+
+        <div class="interview-summary-card">
+
+            <span class="summary-label">
+                UPCOMING
+            </span>
+
+            <strong>
+                {{ interviews|length }}
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================
+         INTERVIEW LIST
+    ====================================== -->
+
+    <div class="interviews-card">
+
+        <div class="interviews-card-header">
+
+            <div>
+
+                <h2>
+                    All Interviews
+                </h2>
+
+                <p>
+                    Your scheduled interview sessions
+                </p>
+
+            </div>
+
+        </div>
+
+
+        {% if interviews %}
+
+            <div class="interview-table">
+
+
+                <!-- TABLE HEADER -->
+
+                <div class="interview-table-header">
+
+                    <span>
+                        POSITION
+                    </span>
+
+                    <span>
+                        COMPANY
+                    </span>
+
+                    <span>
+                        DATE & TIME
+                    </span>
+
+                    <span>
+                        TYPE
+                    </span>
+
+                    <span>
+                        ACTIONS
+                    </span>
+
+                </div>
+
+
+                <!-- TABLE ROWS -->
+
+                {% for interview in interviews %}
+
+                    <div class="interview-row">
+
+
+                        <!-- POSITION -->
+
+                        <div class="interview-position">
+
+                            <div class="interview-company-avatar">
+
+                                {{ interview.application.company_name|first|upper }}
+
+                            </div>
+
+
+                            <div>
+
+                                <strong>
+                                    {{ interview.application.job_title }}
+                                </strong>
+
+                                <span>
+                                    {{ interview.application.location|default:"Location not specified" }}
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- COMPANY -->
+
+                        <div class="interview-company">
+
+                            <strong>
+                                {{ interview.application.company_name }}
+                            </strong>
+
+                        </div>
+
+
+                        <!-- DATE -->
+
+                        <div class="interview-datetime">
+
+                            <strong>
+                                {{ interview.interview_date|date:"M d, Y" }}
+                            </strong>
+
+                            <span>
+                                {{ interview.interview_time|time:"h:i A" }}
+                            </span>
+
+                        </div>
+
+
+                        <!-- TYPE -->
+
+                        <div>
+
+                            <span class="interview-type-badge">
+
+                                {{ interview.get_interview_type_display }}
+
+                            </span>
+
+                        </div>
+
+
+                        <!-- ACTIONS -->
+
+                        <div class="interview-actions">
+
+                            {% if interview.meeting_link %}
+
+                                <a
+                                    href="{{ interview.meeting_link }}"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="interview-action join-action"
+                                    title="Join Meeting"
+                                >
+                                    ↗
+                                </a>
+
+                            {% endif %}
+
+
+                            <a
+                                href="#"
+                                class="interview-action"
+                                title="View"
+                            >
+                                ◉
+                            </a>
+
+
+                            <a
+                                href="#"
+                                class="interview-action"
+                                title="Edit"
+                            >
+                                ✎
+                            </a>
+
+
+                            <button
+                                type="button"
+                                class="interview-action delete-interview"
+                                title="Delete"
+                            >
+                                ♧
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <!-- EMPTY STATE -->
+
+            <div class="interview-empty">
+
+                <div class="empty-interview-icon">
+                    ◷
+                </div>
+
+                <h3>
+                    No interviews scheduled
+                </h3>
+
+                <p>
+                    Add an interview to keep track of your
+                    upcoming sessions.
+                </p>
+
+                <a
+                    {% comment %} href="{% url 'interview_create' %}" {% endcomment %}
+                    class="empty-add-btn"
+                >
+                    + Add Interview
+                </a>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

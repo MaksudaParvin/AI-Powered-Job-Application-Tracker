@@ -86,3 +86,59 @@ class JobApplication(models.Model):
 
     def __str__(self):
         return f'{self.job_title} - {self.company_name}'
+
+
+class Interview(models.Model):
+
+    INTERVIEW_TYPE_CHOICES = [
+        ('video', 'Video Call'),
+        ('phone', 'Phone Call'),
+        ('onsite', 'On-site'),
+        ('technical', 'Technical Interview'),
+        ('hr', 'HR Interview'),
+        ('other', 'Other'),
+    ]
+
+    application = models.ForeignKey(
+        JobApplication,
+        on_delete=models.CASCADE,
+        related_name='interviews'
+    )
+
+    interview_date = models.DateField()
+
+    interview_time = models.TimeField()
+
+    interview_type = models.CharField(
+        max_length=30,
+        choices=INTERVIEW_TYPE_CHOICES,
+        default='video'
+    )
+
+    meeting_link = models.URLField(
+        blank=True
+    )
+
+    notes = models.TextField(
+        blank=True
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    updated_at = models.DateTimeField(
+        auto_now=True
+    )
+
+    class Meta:
+        ordering = [
+            'interview_date',
+            'interview_time'
+        ]
+
+    def __str__(self):
+        return (
+            f'{self.application.company_name} - '
+            f'{self.application.job_title}'
+        )
