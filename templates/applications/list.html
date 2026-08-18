@@ -351,7 +351,7 @@ Applications | JobTrackr
                         <!-- VIEW -->
 
                         <a
-                            href="#"
+                            href="{% url 'application_detail' application.pk %}"
                             class="action-btn view-action"
                             title="View Application"
                         >
@@ -364,7 +364,7 @@ Applications | JobTrackr
                         <!-- EDIT -->
 
                         <a
-                            href="#"
+                            href="{% url 'edit_application' application.pk %}"
                             class="action-btn edit-action"
                             title="Edit Application"
                         >
@@ -380,6 +380,8 @@ Applications | JobTrackr
                             type="button"
                             class="action-btn delete-action"
                             title="Delete Application"
+                            data-id="{{ application.pk }}"
+                            data-title="{{ application.job_title }}"
                         >
 
                             <span class="action-icon">♧</span>
@@ -459,6 +461,81 @@ Applications | JobTrackr
 
 </div>
 
+<!-- =========================================
+     DELETE MODAL
+========================================= -->
+
+<div
+    class="delete-modal-overlay"
+    id="deleteModal"
+>
+
+    <div class="delete-modal">
+
+        <button
+            type="button"
+            class="modal-close"
+            id="closeDeleteModal"
+        >
+            ×
+        </button>
+
+
+        <div class="delete-modal-icon">
+            !
+        </div>
+
+
+        <h2>
+            Delete Application?
+        </h2>
+
+
+        <p>
+            Are you sure you want to delete
+            <strong id="deleteApplicationName">
+                this application
+            </strong>?
+        </p>
+
+
+        <span class="delete-warning">
+            This action cannot be undone.
+        </span>
+
+
+        <form
+            method="POST"
+            id="deleteForm"
+        >
+
+            {% csrf_token %}
+
+            <div class="delete-modal-actions">
+
+                <button
+                    type="button"
+                    class="modal-cancel-btn"
+                    id="cancelDelete"
+                >
+                    Cancel
+                </button>
+
+
+                <button
+                    type="submit"
+                    class="modal-delete-btn"
+                >
+                    Delete Application
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
 
 <!-- =========================================
       JS

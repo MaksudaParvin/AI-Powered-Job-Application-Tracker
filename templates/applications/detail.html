@@ -1,0 +1,528 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+{{ application.job_title }} | JobTrackr
+{% endblock %}
+
+
+{% block content %}
+
+<div class="detail-page-header">
+
+    <div>
+
+        <a
+            href="{% url 'application_list' %}"
+            class="back-link"
+        >
+            ← Back to Applications
+        </a>
+
+        <div class="detail-title">
+
+            <div class="detail-company-avatar">
+                {{ application.company_name|first|upper }}
+            </div>
+
+            <div>
+
+                <h1>
+                    {{ application.job_title }}
+                </h1>
+
+                <p>
+                    {{ application.company_name }}
+                    {% if application.location %}
+                        · {{ application.location }}
+                    {% endif %}
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="detail-actions">
+
+        <a
+            href="{% url 'edit_application' application.pk %}"
+            class="detail-action edit-detail"
+        >
+            ✎ Edit
+        </a>
+
+        <button
+            type="button"
+            class="detail-action delete-detail"
+            id="detailDeleteButton"
+            data-id="{{ application.pk }}"
+            data-title="{{ application.job_title }}"
+        >
+            ♧ Delete
+        </button>
+
+    </div>
+
+</div>
+
+
+<div class="detail-grid">
+
+
+    <!-- =================================
+         MAIN INFORMATION
+    ================================== -->
+
+    <div class="detail-main">
+
+
+        <!-- Status -->
+
+        <div class="detail-card status-card">
+
+            <div class="detail-card-header">
+
+                <h2>
+                    Application Status
+                </h2>
+
+                <span
+                    class="application-status {{ application.status }}"
+                >
+                    {{ application.get_status_display }}
+                </span>
+
+            </div>
+
+
+            <div class="status-progress">
+
+                <div class="progress-step completed">
+                    <span></span>
+                    Wishlist
+                </div>
+
+                <div class="progress-line"></div>
+
+                <div class="progress-step completed">
+                    <span></span>
+                    Applied
+                </div>
+
+                <div class="progress-line"></div>
+
+                <div class="progress-step">
+                    <span></span>
+                    Screening
+                </div>
+
+                <div class="progress-line"></div>
+
+                <div class="progress-step">
+                    <span></span>
+                    Interview
+                </div>
+
+                <div class="progress-line"></div>
+
+                <div class="progress-step">
+                    <span></span>
+                    Selected
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Job Description -->
+
+        <div class="detail-card">
+
+            <div class="detail-card-header">
+
+                <h2>
+                    Job Description
+                </h2>
+
+            </div>
+
+            <div class="job-description">
+
+                {% if application.job_description %}
+
+                    {{ application.job_description|linebreaks }}
+
+                {% else %}
+
+                    <p class="muted">
+                        No job description added.
+                    </p>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+        <!-- Notes -->
+
+        <div class="detail-card">
+
+            <div class="detail-card-header">
+
+                <h2>
+                    Notes
+                </h2>
+
+            </div>
+
+            {% if application.notes %}
+
+                <p class="notes-text">
+                    {{ application.notes|linebreaks }}
+                </p>
+
+            {% else %}
+
+                <p class="muted">
+                    No notes added.
+                </p>
+
+            {% endif %}
+
+        </div>
+
+
+    </div>
+
+
+    <!-- =================================
+         SIDE INFORMATION
+    ================================== -->
+
+    <div class="detail-sidebar">
+
+
+        <!-- Job Information -->
+
+        <div class="detail-card">
+
+            <div class="detail-card-header">
+
+                <h2>
+                    Job Information
+                </h2>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <span>
+                    Company
+                </span>
+
+                <strong>
+                    {{ application.company_name }}
+                </strong>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <span>
+                    Location
+                </span>
+
+                <strong>
+                    {{ application.location|default:"Not specified" }}
+                </strong>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <span>
+                    Salary
+                </span>
+
+                <strong>
+                    {{ application.salary|default:"Not specified" }}
+                </strong>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <span>
+                    Application Date
+                </span>
+
+                <strong>
+                    {{ application.application_date|date:"M d, Y"|default:"Not specified" }}
+                </strong>
+
+            </div>
+
+
+            {% if application.job_url %}
+
+                <div class="info-item">
+
+                    <span>
+                        Job Posting
+                    </span>
+
+                    <a
+                        href="{{ application.job_url }}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Open Job Posting ↗
+                    </a>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- AI Analysis -->
+
+        <div class="detail-card ai-card">
+
+            <div class="ai-title">
+
+                <span class="ai-symbol">
+                    ✦
+                </span>
+
+                <div>
+
+                    <h2>
+                        AI Analysis
+                    </h2>
+
+                    <p>
+                        Analyze this job with AI
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <a
+                href="#"
+                class="ai-analyze-btn"
+            >
+                Analyze Job Description
+            </a>
+
+        </div>
+
+
+        <!-- Timestamps -->
+
+        <div class="detail-card timestamps">
+
+            <div class="info-item">
+
+                <span>
+                    Added
+                </span>
+
+                <strong>
+                    {{ application.created_at|date:"M d, Y" }}
+                </strong>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <span>
+                    Last Updated
+                </span>
+
+                <strong>
+                    {{ application.updated_at|date:"M d, Y" }}
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Delete Modal -->
+
+<div
+    class="delete-modal-overlay"
+    id="deleteModal"
+>
+
+    <div class="delete-modal">
+
+        <button
+            type="button"
+            class="modal-close"
+            id="closeDeleteModal"
+        >
+            ×
+        </button>
+
+        <div class="delete-modal-icon">
+            !
+        </div>
+
+        <h2>
+            Delete Application?
+        </h2>
+
+        <p>
+            Are you sure you want to delete
+            <strong id="deleteApplicationName">
+                {{ application.job_title }}
+            </strong>?
+        </p>
+
+        <span class="delete-warning">
+            This action cannot be undone.
+        </span>
+
+        <form
+            method="POST"
+            id="deleteForm"
+        >
+
+            {% csrf_token %}
+
+            <div class="delete-modal-actions">
+
+                <button
+                    type="button"
+                    class="modal-cancel-btn"
+                    id="cancelDelete"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    type="submit"
+                    class="modal-delete-btn"
+                >
+                    Delete Application
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script>
+
+const detailDeleteButton =
+    document.getElementById("detailDeleteButton");
+
+const deleteModal =
+    document.getElementById("deleteModal");
+
+const deleteForm =
+    document.getElementById("deleteForm");
+
+const deleteApplicationName =
+    document.getElementById("deleteApplicationName");
+
+const closeDeleteModal =
+    document.getElementById("closeDeleteModal");
+
+const cancelDelete =
+    document.getElementById("cancelDelete");
+
+
+detailDeleteButton.addEventListener("click", () => {
+
+    const applicationId =
+        detailDeleteButton.dataset.id;
+
+    const applicationTitle =
+        detailDeleteButton.dataset.title;
+
+
+    deleteApplicationName.textContent =
+        applicationTitle;
+
+
+    deleteForm.action =
+        `/applications/${applicationId}/delete/`;
+
+
+    deleteModal.classList.add("show");
+
+});
+
+
+function closeDeleteModalWindow() {
+
+    deleteModal.classList.remove("show");
+
+}
+
+
+closeDeleteModal.addEventListener(
+    "click",
+    closeDeleteModalWindow
+);
+
+
+cancelDelete.addEventListener(
+    "click",
+    closeDeleteModalWindow
+);
+
+
+deleteModal.addEventListener(
+    "click",
+    (event) => {
+
+        if (event.target === deleteModal) {
+
+            closeDeleteModalWindow();
+
+        }
+
+    }
+);
+
+
+document.addEventListener(
+    "keydown",
+    (event) => {
+
+        if (event.key === "Escape") {
+
+            closeDeleteModalWindow();
+
+        }
+
+    }
+);
+
+</script>
+
+{% endblock %}

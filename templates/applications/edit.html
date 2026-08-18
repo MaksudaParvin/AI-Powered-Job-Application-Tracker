@@ -1,0 +1,234 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Edit Application | JobTrackr
+{% endblock %}
+
+
+{% block content %}
+
+<div class="page-header">
+
+    <div>
+
+        <a
+            href="{% url 'application_detail' application.pk %}"
+            class="back-link"
+        >
+            ← Back to Application
+        </a>
+
+        <h1>
+            Edit Application
+        </h1>
+
+        <p>
+            Update your application information.
+        </p>
+
+    </div>
+
+</div>
+
+
+<div class="application-form-card">
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+
+        {% if form.non_field_errors %}
+
+            <div class="form-errors">
+                {{ form.non_field_errors }}
+            </div>
+
+        {% endif %}
+
+
+        <div class="form-section">
+
+            <div class="section-heading">
+
+                <h2>
+                    Job Information
+                </h2>
+
+                <p>
+                    Update the information about this position.
+                </p>
+
+            </div>
+
+
+            <div class="form-grid">
+
+
+                <!-- Job Title -->
+
+                <div class="form-group">
+
+                    <label>
+                        JOB TITLE
+                    </label>
+
+                    {{ form.job_title }}
+
+                    {% for error in form.job_title.errors %}
+
+                        <small class="field-error">
+                            {{ error }}
+                        </small>
+
+                    {% endfor %}
+
+                </div>
+
+
+                <!-- Company -->
+
+                <div class="form-group">
+
+                    <label>
+                        COMPANY NAME
+                    </label>
+
+                    {{ form.company_name }}
+
+                    {% for error in form.company_name.errors %}
+
+                        <small class="field-error">
+                            {{ error }}
+                        </small>
+
+                    {% endfor %}
+
+                </div>
+
+
+                <!-- Location -->
+
+                <div class="form-group">
+
+                    <label>
+                        LOCATION
+                    </label>
+
+                    {{ form.location }}
+
+                </div>
+
+
+                <!-- Salary -->
+
+                <div class="form-group">
+
+                    <label>
+                        SALARY
+                    </label>
+
+                    {{ form.salary }}
+
+                </div>
+
+
+                <!-- Job URL -->
+
+                <div class="form-group full-width">
+
+                    <label>
+                        JOB URL
+                    </label>
+
+                    {{ form.job_url }}
+
+                </div>
+
+
+                <!-- Application Date -->
+
+                <div class="form-group">
+
+                    <label>
+                        APPLICATION DATE
+                    </label>
+
+                    {{ form.application_date }}
+
+                </div>
+
+
+                <!-- Status -->
+
+                <div class="form-group">
+
+                    <label>
+                        STATUS
+                    </label>
+
+                    {{ form.status }}
+
+                </div>
+
+
+                <!-- Job Description -->
+
+                <div class="form-group full-width">
+
+                    <label>
+                        JOB DESCRIPTION
+                    </label>
+
+                    {{ form.job_description }}
+
+                    <p class="field-hint">
+                        Keep the job description updated for
+                        future AI analysis.
+                    </p>
+
+                </div>
+
+
+                <!-- Notes -->
+
+                <div class="form-group full-width">
+
+                    <label>
+                        NOTES
+                    </label>
+
+                    {{ form.notes }}
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Actions -->
+
+        <div class="form-actions">
+
+            <a
+                href="{% url 'application_detail' application.pk %}"
+                class="cancel-btn"
+            >
+                Cancel
+            </a>
+
+            <button
+                type="submit"
+                class="save-btn"
+            >
+                Save Changes
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}

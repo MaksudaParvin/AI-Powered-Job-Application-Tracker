@@ -1,0 +1,583 @@
+/* =========================================
+   HEADER
+========================================= */
+
+.detail-page-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-end;
+
+    margin-bottom: 25px;
+}
+
+
+.back-link {
+
+    display: inline-block;
+
+    margin-bottom: 18px;
+
+    color: #6979ad;
+
+    font-size: 11px;
+}
+
+
+.back-link:hover {
+
+    color: #7d83f2;
+}
+
+
+.detail-title {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+}
+
+
+.detail-company-avatar {
+
+    width: 48px;
+
+    height: 48px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background: #171f3c;
+
+    color: #777ef1;
+
+    font-size: 17px;
+
+    font-weight: 600;
+}
+
+
+.detail-title h1 {
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: 28px;
+
+    color: #f0eee9;
+}
+
+
+.detail-title p {
+
+    margin-top: 5px;
+
+    color: #7180b4;
+
+    font-size: 12px;
+}
+
+
+/* =========================================
+   ACTIONS
+========================================= */
+
+.detail-actions {
+
+    display: flex;
+
+    gap: 8px;
+}
+
+
+.detail-action {
+
+    height: 36px;
+
+    padding: 0 13px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 6px;
+
+    border-radius: 7px;
+
+    border: 1px solid #29365d;
+
+    background: #11182b;
+
+    color: #7886b2;
+
+    font-size: 11px;
+
+    cursor: pointer;
+}
+
+
+.edit-detail:hover {
+
+    color: #6e9fe9;
+
+    border-color: #36517e;
+}
+
+
+.delete-detail:hover {
+
+    color: #e66e7b;
+
+    border-color: #59303b;
+}
+
+
+/* =========================================
+   GRID
+========================================= */
+
+.detail-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 2fr)
+        minmax(270px, .85fr);
+
+    gap: 18px;
+}
+
+
+.detail-main,
+.detail-sidebar {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 18px;
+}
+
+
+/* =========================================
+   CARD
+========================================= */
+
+.detail-card {
+
+    padding: 21px;
+
+    background: #101627;
+
+    border: 1px solid #222d51;
+
+    border-radius: 11px;
+}
+
+
+.detail-card-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 18px;
+}
+
+
+.detail-card-header h2 {
+
+    font-size: 14px;
+
+    color: #e9ebf4;
+}
+
+
+/* =========================================
+   STATUS
+========================================= */
+
+.status-card {
+
+    min-height: 145px;
+}
+
+
+.status-progress {
+
+    display: flex;
+
+    align-items: center;
+
+    margin-top: 30px;
+}
+
+
+.progress-step {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 7px;
+
+    color: #66749e;
+
+    font-family: monospace;
+
+    font-size: 7px;
+
+    white-space: nowrap;
+}
+
+
+.progress-step span {
+
+    width: 9px;
+
+    height: 9px;
+
+    border-radius: 50%;
+
+    background: #2b3452;
+
+    border: 2px solid #11182b;
+}
+
+
+.progress-step.completed {
+
+    color: #777ff0;
+}
+
+
+.progress-step.completed span {
+
+    background: #625cf0;
+}
+
+
+.progress-line {
+
+    height: 2px;
+
+    flex: 1;
+
+    margin-bottom: 17px;
+
+    background: #293252;
+}
+
+
+.status-card .application-status {
+
+    margin-left: auto;
+}
+
+
+/* =========================================
+   JOB DESCRIPTION
+========================================= */
+
+.job-description {
+
+    color: #8792b4;
+
+    font-size: 12px;
+
+    line-height: 1.8;
+}
+
+
+.job-description p {
+
+    margin-bottom: 10px;
+}
+
+
+.muted {
+
+    color: #5f6d96;
+
+    font-size: 11px;
+}
+
+
+/* =========================================
+   NOTES
+========================================= */
+
+.notes-text {
+
+    color: #7d89ae;
+
+    font-size: 12px;
+
+    line-height: 1.7;
+}
+
+
+/* =========================================
+   INFO
+========================================= */
+
+.info-item {
+
+    padding: 13px 0;
+
+    border-bottom: 1px solid #1e2742;
+}
+
+
+.info-item:first-child {
+
+    padding-top: 0;
+}
+
+
+.info-item:last-child {
+
+    border-bottom: none;
+
+    padding-bottom: 0;
+}
+
+
+.info-item span {
+
+    display: block;
+
+    margin-bottom: 6px;
+
+    font-family: monospace;
+
+    font-size: 8px;
+
+    letter-spacing: .8px;
+
+    color: #63719d;
+}
+
+
+.info-item strong {
+
+    display: block;
+
+    color: #dce0eb;
+
+    font-size: 11px;
+
+    font-weight: 500;
+}
+
+
+.info-item a {
+
+    color: #7279ed;
+
+    font-size: 11px;
+}
+
+
+.info-item a:hover {
+
+    text-decoration: underline;
+}
+
+
+/* =========================================
+   AI CARD
+========================================= */
+
+.ai-card {
+
+    background:
+        linear-gradient(
+            145deg,
+            #111a31,
+            #111627
+        );
+
+    border-color: #34345f;
+}
+
+
+.ai-title {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+    margin-bottom: 18px;
+}
+
+
+.ai-symbol {
+
+    width: 35px;
+
+    height: 35px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 9px;
+
+    background: #2a2110;
+
+    color: #edaa20;
+
+    font-size: 17px;
+}
+
+
+.ai-title h2 {
+
+    font-size: 13px;
+
+    color: #e9ebf4;
+}
+
+
+.ai-title p {
+
+    margin-top: 4px;
+
+    color: #6876a5;
+
+    font-size: 9px;
+}
+
+
+.ai-analyze-btn {
+
+    height: 37px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 7px;
+
+    background: #625cf0;
+
+    color: white;
+
+    font-size: 10px;
+
+    font-weight: 600;
+}
+
+
+.ai-analyze-btn:hover {
+
+    background: #716bf5;
+}
+
+
+/* =========================================
+   TIMESTAMPS
+========================================= */
+
+.timestamps .info-item {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+}
+
+
+.timestamps .info-item span {
+
+    margin: 0;
+}
+
+
+.timestamps .info-item strong {
+
+    font-family: monospace;
+
+    font-size: 9px;
+
+    color: #6877a3;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 900px) {
+
+    .detail-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+}
+
+
+@media (max-width: 650px) {
+
+    .detail-page-header {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 15px;
+
+    }
+
+    .detail-actions {
+
+        width: 100%;
+    }
+
+    .detail-action {
+
+        flex: 1;
+    }
+
+    .status-progress {
+
+        overflow-x: auto;
+
+        padding-bottom: 8px;
+
+    }
+
+    .progress-step {
+
+        flex-shrink: 0;
+
+    }
+
+}

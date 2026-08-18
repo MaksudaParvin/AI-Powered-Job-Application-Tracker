@@ -31,10 +31,31 @@
     href="{% static 'css/application-list.css' %}"
     >
 
+    <link
+        rel="stylesheet"
+        href="{% static 'css/application-detail.css' %}"
+    >
+
 </head>
 
 
-<body>
+    <body>
+
+        {% if messages %}
+
+        <div class="toast-container">
+
+            {% for message in messages %}
+
+                <div class="toast-message">
+                    {{ message }}
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% endif %}
 
     <div class="app-layout">
 

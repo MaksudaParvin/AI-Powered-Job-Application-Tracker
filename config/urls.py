@@ -17,7 +17,9 @@ Including another URLconf
 from django.urls import path
 
 from accounts.views import (register_view, login_view, logout_view, dashboard_view)
-from applications.views import (create_application_view, application_list_view)
+from applications.views import (create_application_view, application_list_view,
+                                 application_detail_view, edit_application_view,
+                                 delete_application_view)
 
 urlpatterns = [
 
@@ -34,5 +36,11 @@ urlpatterns = [
     path('create/', create_application_view,  name='create_application'), 
 
     path('list/', application_list_view,  name='application_list'),  
+
+    path('applications/<int:pk>/', application_detail_view, name='application_detail'),
+
+    path('applications/<int:pk>/edit/',edit_application_view, name='edit_application'),
+
+    path('applications/<int:pk>/delete/', delete_application_view,name='delete_application'),
 
 ]
