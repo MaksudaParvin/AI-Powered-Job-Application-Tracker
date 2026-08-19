@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
 Dashboard | JobTrackr
@@ -24,7 +25,10 @@ Dashboard | JobTrackr
     </div>
 
 
-    <a href="{% url 'create_application' %}" class="add-application-btn">
+    <a
+        href="{% url 'create_application' %}"
+        class="add-application-btn"
+    >
 
         <span>+</span>
 
@@ -35,9 +39,14 @@ Dashboard | JobTrackr
 </div>
 
 
-<!-- Statistics -->
+<!-- ========================================
+     STATISTICS
+======================================== -->
 
 <div class="stats-grid">
+
+
+    <!-- TOTAL APPLICATIONS -->
 
     <div class="dashboard-card">
 
@@ -50,11 +59,13 @@ Dashboard | JobTrackr
         </div>
 
         <div class="card-description">
-            +2 this week
+            Applications tracked
         </div>
 
     </div>
 
+
+    <!-- ACTIVE PIPELINE -->
 
     <div class="dashboard-card">
 
@@ -73,6 +84,8 @@ Dashboard | JobTrackr
     </div>
 
 
+    <!-- INTERVIEWS -->
+
     <div class="dashboard-card">
 
         <div class="card-label">
@@ -80,7 +93,7 @@ Dashboard | JobTrackr
         </div>
 
         <div class="card-number orange">
-            {{ status_data.interview }}
+            {{ interview_count }}
         </div>
 
         <div class="card-description">
@@ -89,6 +102,8 @@ Dashboard | JobTrackr
 
     </div>
 
+
+    <!-- OFFERS -->
 
     <div class="dashboard-card">
 
@@ -101,7 +116,7 @@ Dashboard | JobTrackr
         </div>
 
         <div class="card-description">
-            Pending decision
+            Selected
         </div>
 
     </div>
@@ -109,12 +124,16 @@ Dashboard | JobTrackr
 </div>
 
 
-<!-- Middle Section -->
+<!-- ========================================
+     MIDDLE SECTION
+======================================== -->
 
 <div class="dashboard-middle">
 
 
-    <!-- Application Status -->
+    <!-- ====================================
+         APPLICATION STATUS
+    ===================================== -->
 
     <div class="panel status-panel">
 
@@ -132,6 +151,7 @@ Dashboard | JobTrackr
 
             </div>
 
+
             <a href="{% url 'application_list' %}">
                 View all →
             </a>
@@ -139,75 +159,116 @@ Dashboard | JobTrackr
         </div>
 
 
+        <!-- STATUS BARS -->
+
         <div class="status-bars">
+
+
+            <!-- WISHLIST -->
 
             <div class="status-column">
 
-                <span>{{ status_data.wishlist }}</span>
+                <span>
+                    {{ status_data.wishlist }}
+                </span>
 
                 <div class="bar wishlist"></div>
 
-                <small>WISHLIST</small>
+                <small>
+                    WISHLIST
+                </small>
 
             </div>
 
 
+            <!-- APPLIED -->
+
             <div class="status-column">
 
-                <span>{{ status_data.applied }}</span>
+                <span>
+                    {{ status_data.applied }}
+                </span>
 
                 <div class="bar applied"></div>
 
-                <small>APPLIED</small>
+                <small>
+                    APPLIED
+                </small>
 
             </div>
 
 
+            <!-- SCREENING -->
+
             <div class="status-column">
 
-                <span>{{ status_data.screening }}</span>
+                <span>
+                    {{ status_data.screening }}
+                </span>
 
                 <div class="bar screening"></div>
 
-                <small>SCREENING</small>
+                <small>
+                    SCREENING
+                </small>
 
             </div>
 
 
+            <!-- INTERVIEW -->
+
             <div class="status-column">
 
-                <span>{{ status_data.interview }}</span>
+                <span>
+                    {{ status_data.interview }}
+                </span>
 
                 <div class="bar interview"></div>
 
-                <small>INTERVIEW</small>
+                <small>
+                    INTERVIEW
+                </small>
 
             </div>
 
 
+            <!-- SELECTED -->
+
             <div class="status-column">
 
-                <span>{{ status_data.selected }}</span>
+                <span>
+                    {{ status_data.selected }}
+                </span>
 
                 <div class="bar selected"></div>
 
-                <small>SELECTED</small>
+                <small>
+                    SELECTED
+                </small>
 
             </div>
 
 
+            <!-- REJECTED -->
+
             <div class="status-column">
 
-                <span>{{ status_data.rejected }}</span>
+                <span>
+                    {{ status_data.rejected }}
+                </span>
 
                 <div class="bar rejected"></div>
 
-                <small>REJECTED</small>
+                <small>
+                    REJECTED
+                </small>
 
             </div>
 
         </div>
 
+
+        <!-- PIPELINE -->
 
         <div class="pipeline">
 
@@ -218,8 +279,11 @@ Dashboard | JobTrackr
             <div class="pipeline-bar">
 
                 <span class="wishlist"></span>
+
                 <span class="applied"></span>
+
                 <span class="screening"></span>
+
                 <span class="interview"></span>
 
             </div>
@@ -229,78 +293,138 @@ Dashboard | JobTrackr
     </div>
 
 
-    <!-- Upcoming Interviews -->
+    <!-- ====================================
+         UPCOMING INTERVIEWS
+    ===================================== -->
 
     <div class="panel interviews-panel">
 
+
         <div class="panel-header">
 
-            <h2>
-                Upcoming Interviews
-            </h2>
-
-        </div>
-
-
-        <div class="interview-item">
-
             <div>
 
-                <strong>Linear</strong>
+                <h2>
+                    Upcoming Interviews
+                </h2>
 
-                <span>
-                    Product Designer
-                </span>
-
-                <small>
-                    🗓 2026-08-20 · 11:00 AM
-                </small>
+                <p>
+                    Your scheduled interview sessions
+                </p>
 
             </div>
 
-            <label>
-                Video Call
-            </label>
+
+            <a href="{% url 'interview_list' %}">
+                View all →
+            </a>
 
         </div>
 
 
-        <div class="interview-item">
+        {% if upcoming_interviews %}
 
-            <div>
 
-                <strong>Vercel</strong>
+            <div class="upcoming-interviews-list">
 
-                <span>
-                    Senior Frontend Engineer
-                </span>
 
-                <small>
-                    🗓 2026-08-22 · 3:00 PM
-                </small>
+                {% for interview in upcoming_interviews %}
+
+
+                    <div class="interview-item">
+
+
+                        <div>
+
+                            <strong>
+                                {{ interview.application.company_name }}
+                            </strong>
+
+
+                            <span>
+                                {{ interview.application.job_title }}
+                            </span>
+
+
+                            <small>
+
+                                🗓
+
+                                {{ interview.interview_date|date:"Y-m-d" }}
+
+                                ·
+
+                                {{ interview.interview_time|time:"h:i A" }}
+
+                            </small>
+
+                        </div>
+
+
+                        <label>
+
+                            {{ interview.get_interview_type_display }}
+
+                        </label>
+
+
+                    </div>
+
+
+                {% endfor %}
+
 
             </div>
 
-            <label>
-                Video Call
-            </label>
 
-        </div>
+        {% else %}
+
+
+            <div class="dashboard-empty-interviews">
+
+                <div class="empty-interview-icon">
+                    ◷
+                </div>
+
+
+                <h3>
+                    No upcoming interviews
+                </h3>
+
+
+                <p>
+                    Your scheduled interviews will appear here.
+                </p>
+
+
+                <a href="{% url 'interview_create' %}">
+                    + Add Interview
+                </a>
+
+            </div>
+
+
+        {% endif %}
+
 
     </div>
 
 </div>
 
 
-<!-- Recent Applications -->
+<!-- ========================================
+     RECENT APPLICATIONS
+======================================== -->
 
 <div class="panel recent-panel">
+
 
     <div class="panel-header">
 
         <h2>
             Recent Applications
         </h2>
+
 
         <a href="{% url 'application_list' %}">
             View all →
@@ -316,17 +440,29 @@ Dashboard | JobTrackr
 
         <div class="applications-table-header">
 
-            <span>JOB</span>
+            <span>
+                JOB
+            </span>
 
-            <span>COMPANY</span>
+            <span>
+                COMPANY
+            </span>
 
-            <span>LOCATION</span>
+            <span>
+                LOCATION
+            </span>
 
-            <span>DATE</span>
+            <span>
+                DATE
+            </span>
 
-            <span>STATUS</span>
+            <span>
+                STATUS
+            </span>
 
-            <span>ACTIONS</span>
+            <span>
+                ACTIONS
+            </span>
 
         </div>
 
@@ -335,13 +471,19 @@ Dashboard | JobTrackr
 
         <div id="applicationsContainer">
 
+
             {% for application in applications %}
+
 
                 <div
                     class="application-row"
+
                     data-title="{{ application.job_title|lower }}"
+
                     data-company="{{ application.company_name|lower }}"
+
                     data-status="{{ application.status }}"
+
                     data-location="{{ application.location|lower }}"
                 >
 
@@ -358,8 +500,6 @@ Dashboard | JobTrackr
                             {{ application.get_category_display }}
                         </small>
 
-
-
                     </div>
 
 
@@ -373,8 +513,11 @@ Dashboard | JobTrackr
 
                         </span>
 
+
                         <span>
+
                             {{ application.company_name }}
+
                         </span>
 
                     </div>
@@ -426,7 +569,9 @@ Dashboard | JobTrackr
                             title="AI Analysis"
                         >
 
-                            <span class="action-icon">✦</span>
+                            <span class="action-icon">
+                                ✦
+                            </span>
 
                             <span class="action-label">
                                 AI
@@ -443,7 +588,9 @@ Dashboard | JobTrackr
                             title="View Application"
                         >
 
-                            <span class="action-icon">◉</span>
+                            <span class="action-icon">
+                                ◉
+                            </span>
 
                         </a>
 
@@ -456,7 +603,9 @@ Dashboard | JobTrackr
                             title="Edit Application"
                         >
 
-                            <span class="action-icon">✎</span>
+                            <span class="action-icon">
+                                ✎
+                            </span>
 
                         </a>
 
@@ -465,13 +614,21 @@ Dashboard | JobTrackr
 
                         <button
                             type="button"
+
                             class="action-btn delete-action"
+
                             title="Delete Application"
+
                             data-id="{{ application.pk }}"
+
                             data-title="{{ application.job_title }}"
+
+                            data-url="{% url 'delete_application' application.pk %}"
                         >
 
-                            <span class="action-icon">♧</span>
+                            <span class="action-icon">
+                                ♧
+                            </span>
 
                         </button>
 
@@ -481,7 +638,9 @@ Dashboard | JobTrackr
 
                 </div>
 
+
             {% endfor %}
+
 
         </div>
 
@@ -529,12 +688,15 @@ Dashboard | JobTrackr
                 your first application.
             </p>
 
+
             <a
                 href="{% url 'create_application' %}"
                 class="add-application-btn"
             >
 
-                <span>+</span>
+                <span>
+                    +
+                </span>
 
                 Add Application
 
@@ -545,6 +707,303 @@ Dashboard | JobTrackr
 
     {% endif %}
 
+
 </div>
+
+
+
+<!-- ========================================
+     DELETE APPLICATION MODAL
+======================================== -->
+
+<div
+    id="deleteModal"
+    class="delete-modal-overlay"
+>
+
+
+    <div class="delete-modal">
+
+
+        <!-- CLOSE -->
+
+        <button
+            type="button"
+            id="closeDeleteModal"
+            class="modal-close"
+        >
+            ×
+        </button>
+
+
+        <!-- ICON -->
+
+        <div class="delete-modal-icon">
+            !
+        </div>
+
+
+        <!-- TITLE -->
+
+        <h2>
+            Delete Application?
+        </h2>
+
+
+        <!-- MESSAGE -->
+
+        <p>
+
+            Are you sure you want to delete
+
+            <strong id="deleteApplicationName">
+                this application
+            </strong>?
+
+        </p>
+
+
+        <span class="delete-warning">
+            This action cannot be undone.
+        </span>
+
+
+        <!-- DELETE FORM -->
+
+        <form
+            method="POST"
+            id="deleteForm"
+        >
+
+            {% csrf_token %}
+
+
+            <div class="delete-modal-actions">
+
+
+                <button
+                    type="button"
+                    id="cancelDelete"
+                    class="modal-cancel-btn"
+                >
+                    Cancel
+                </button>
+
+
+                <button
+                    type="submit"
+                    class="modal-delete-btn"
+                >
+                    Delete Application
+                </button>
+
+
+            </div>
+
+        </form>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- ========================================
+     DASHBOARD JAVASCRIPT
+======================================== -->
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+
+        // ====================================
+        // DELETE MODAL
+        // ====================================
+
+        const deleteModal =
+            document.getElementById(
+                "deleteModal"
+            );
+
+
+        const deleteForm =
+            document.getElementById(
+                "deleteForm"
+            );
+
+
+        const deleteApplicationName =
+            document.getElementById(
+                "deleteApplicationName"
+            );
+
+
+        const closeDeleteModal =
+            document.getElementById(
+                "closeDeleteModal"
+            );
+
+
+        const cancelDelete =
+            document.getElementById(
+                "cancelDelete"
+            );
+
+
+        const deleteButtons =
+            document.querySelectorAll(
+                ".delete-action"
+            );
+
+
+        // ====================================
+        // SAFETY CHECK
+        // ====================================
+
+        if (
+            !deleteModal ||
+            !deleteForm ||
+            !deleteApplicationName ||
+            !closeDeleteModal ||
+            !cancelDelete
+        ) {
+
+            console.error(
+                "Delete modal elements are missing."
+            );
+
+            return;
+
+        }
+
+
+        // ====================================
+        // OPEN MODAL
+        // ====================================
+
+        deleteButtons.forEach(
+            function (button) {
+
+                button.addEventListener(
+                    "click",
+                    function () {
+
+
+                        const applicationTitle =
+                            this.dataset.title;
+
+
+                        const deleteUrl =
+                            this.dataset.url;
+
+
+                        deleteApplicationName.textContent =
+                            applicationTitle;
+
+
+                        deleteForm.action =
+                            deleteUrl;
+
+
+                        deleteModal.classList.add(
+                            "show"
+                        );
+
+
+                        document.body.classList.add(
+                            "modal-open"
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+
+        // ====================================
+        // CLOSE MODAL
+        // ====================================
+
+        function closeModal() {
+
+            deleteModal.classList.remove(
+                "show"
+            );
+
+
+            document.body.classList.remove(
+                "modal-open"
+            );
+
+        }
+
+
+        // CLOSE BUTTON
+
+        closeDeleteModal.addEventListener(
+            "click",
+            closeModal
+        );
+
+
+        // CANCEL BUTTON
+
+        cancelDelete.addEventListener(
+            "click",
+            closeModal
+        );
+
+
+        // ====================================
+        // CLICK OUTSIDE
+        // ====================================
+
+        deleteModal.addEventListener(
+            "click",
+            function (event) {
+
+                if (
+                    event.target === deleteModal
+                ) {
+
+                    closeModal();
+
+                }
+
+            }
+        );
+
+
+        // ====================================
+        // ESC KEY
+        // ====================================
+
+        document.addEventListener(
+            "keydown",
+            function (event) {
+
+                if (
+                    event.key === "Escape" &&
+                    deleteModal.classList.contains("show")
+                ) {
+
+                    closeModal();
+
+                }
+
+            }
+        );
+
+
+    }
+);
+
+</script>
+
 
 {% endblock %}

@@ -9,6 +9,8 @@ from django.contrib import messages
 
 from django.db.models import Q, Count
 
+from django.utils import timezone
+
 
 @login_required
 def create_application_view(request):
@@ -245,23 +247,24 @@ def dashboard_view(request):
 
     user = request.user
 
-    applications = JobApplication.objects.filter(
-        user=request.user
-    )
+    # ========================================
+    # TOTAL APPLICATIONS
+    # ========================================
 
-    # Total Applications
     total_applications = JobApplication.objects.filter(
         user=user
     ).count()
 
 
-    # Applications by Status
-    status_counts = JobApplication.objects.filter(
-        user=user
-    ).values(
-        'status'
-    ).annotate(
-        count=Count('id')
+    # ========================================
+    # APPLICATION STATUS COUNTS
+    # ========================================
+
+    status_counts = (
+        JobApplication.objects
+        .filter(user=user)
+        .values('status')
+        .annotate(count=Count('id'))
     )
 
 
@@ -277,30 +280,79 @@ def dashboard_view(request):
 
     for item in status_counts:
 
-        status_data[item['status']] = item['count']
+        status = item['status']
+
+        if status in status_data:
+
+            status_data[status] = item['count']
 
 
-    # Recent Applications
-    recent_applications = JobApplication.objects.filter(
-        user=user
-    ).order_by(
-        '-created_at'
-    )[:5]
+    # ========================================
+    # RECENT APPLICATIONS
+    # ========================================
 
+    applications = (
+        JobApplication.objects
+        .filter(user=user)
+        .order_by('-created_at')[:5]
+    )
+
+
+    # ========================================
+    # UPCOMING INTERVIEWS
+    # ========================================
+
+    today = timezone.localdate()
+
+
+    upcoming_interviews = (
+        Interview.objects
+        .filter(
+            application__user=user,
+            interview_date__gte=today
+        )
+        .select_related('application')
+        .order_by(
+            'interview_date',
+            'interview_time'
+        )[:3]
+    )
+
+
+    # ========================================
+    # INTERVIEW COUNT
+    # ========================================
+
+    interview_count = (
+        Interview.objects
+        .filter(
+            application__user=user,
+            interview_date__gte=today
+        )
+        .count()
+    )
+
+
+    # ========================================
+    # CONTEXT
+    # ========================================
 
     context = {
 
         'total_applications':
             total_applications,
 
-        'applications': applications,
-
         'status_data':
             status_data,
 
-        'recent_applications':
-            recent_applications,
+        'applications':
+            applications,
 
+        'upcoming_interviews':
+            upcoming_interviews,
+
+        'interview_count':
+            interview_count,
     }
 
 
