@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
-from .forms import JobApplicationForm
+from .forms import JobApplicationForm, InterviewForm
 from .models import JobApplication, Interview
 
 from django.shortcuts import get_object_or_404
@@ -327,5 +327,58 @@ def interview_list_view(request):
         'interviews/interview_list.html',
         {
             'interviews': interviews
+        }
+    )
+
+
+@login_required
+def create_interview_view(request):
+
+    if request.method == 'POST':
+
+        form = InterviewForm(
+            request.POST,
+            user=request.user
+        )
+
+        if form.is_valid():
+
+            interview = form.save(
+                commit=False
+            )
+
+            # Extra security check
+            if interview.application.user != request.user:
+
+                form.add_error(
+                    'application',
+                    'Invalid application selected.'
+                )
+
+            else:
+
+                interview.save()
+
+                messages.success(
+                    request,
+                    'Interview scheduled successfully.'
+                )
+
+                return redirect(
+                    'interview_list'
+                )
+
+    else:
+
+        form = InterviewForm(
+            user=request.user
+        )
+
+    return render(
+        request,
+        'applications/interview_form.html',
+        {
+            'form': form,
+            'page_title': 'Add Interview',
         }
     )

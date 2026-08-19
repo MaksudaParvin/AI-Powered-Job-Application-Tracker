@@ -19,7 +19,8 @@ from django.urls import path
 from accounts.views import (register_view, login_view, logout_view)
 from applications.views import (create_application_view, application_list_view,
                                  application_detail_view, edit_application_view,
-                                 delete_application_view, dashboard_view, interview_list_view)
+                                 delete_application_view, dashboard_view, 
+                                 interview_list_view, create_interview_view)
 
 urlpatterns = [
 
@@ -44,5 +45,7 @@ urlpatterns = [
     path('applications/<int:pk>/delete/', delete_application_view,name='delete_application'),
 
     path('interview_list/', interview_list_view,  name='interview_list'),   
+
+    path('interviews/create/', create_interview_view, name='interview_create'),
 
 ]
