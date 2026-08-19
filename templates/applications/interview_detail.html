@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Interview Details | JobTrackr
+{% endblock %}
+
+
+{% block content %}
+
+<div class="interview-detail-page">
+
+    <a
+        href="{% url 'interview_list' %}"
+        class="back-link"
+    >
+        ← Back to Interviews
+    </a>
+
+
+    <div class="interview-detail-header">
+
+        <div>
+
+            <div class="interview-detail-company">
+
+                {{ interview.application.company_name|first|upper }}
+
+            </div>
+
+            <h1>
+                {{ interview.application.job_title }}
+            </h1>
+
+            <p>
+                {{ interview.application.company_name }}
+            </p>
+
+        </div>
+
+
+        <div class="detail-actions">
+
+            {% comment %} <a
+                href="{% url 'interview_edit' interview.pk %}"
+                class="detail-action"
+            >
+                ✎ Edit
+            </a>
+
+            <button
+                type="button"
+                class="detail-action delete-detail"
+            >
+                ♧ Delete
+            </button> {% endcomment %}
+
+        </div>
+
+    </div>
+
+
+    <div class="interview-detail-grid">
+
+
+        <div class="detail-card">
+
+            <h2>
+                Interview Details
+            </h2>
+
+
+            <div class="info-item">
+
+                <span>
+                    DATE
+                </span>
+
+                <strong>
+                    {{ interview.interview_date|date:"M d, Y" }}
+                </strong>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <span>
+                    TIME
+                </span>
+
+                <strong>
+                    {{ interview.interview_time|time:"h:i A" }}
+                </strong>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <span>
+                    TYPE
+                </span>
+
+                <strong>
+                    {{ interview.get_interview_type_display }}
+                </strong>
+
+            </div>
+
+
+            {% if interview.meeting_link %}
+
+                <div class="info-item">
+
+                    <span>
+                        MEETING LINK
+                    </span>
+
+                    <a
+                        href="{{ interview.meeting_link }}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Join Interview ↗
+                    </a>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+
+        <div class="detail-card">
+
+            <h2>
+                Interview Notes
+            </h2>
+
+
+            {% if interview.notes %}
+
+                <div class="interview-notes">
+
+                    {{ interview.notes|linebreaks }}
+
+                </div>
+
+            {% else %}
+
+                <p class="muted">
+                    No interview notes added.
+                </p>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -382,3 +382,95 @@ def create_interview_view(request):
             'page_title': 'Add Interview',
         }
     )
+
+
+@login_required
+def interview_detail_view(request, pk):
+
+    interview = get_object_or_404(
+        Interview,
+        pk=pk,
+        application__user=request.user
+    )
+
+    return render(
+        request,
+        'applications/interview_detail.html',
+        {
+            'interview': interview
+        }
+    )
+
+@login_required
+def edit_interview_view(request, pk):
+
+    interview = get_object_or_404(
+        Interview,
+        pk=pk,
+        application__user=request.user
+    )
+
+    if request.method == 'POST':
+
+        form = InterviewForm(
+            request.POST,
+            instance=interview,
+            user=request.user
+        )
+
+        if form.is_valid():
+
+            form.save()
+
+            messages.success(
+                request,
+                'Interview updated successfully.'
+            )
+
+            return redirect(
+                'interview_list'
+            )
+
+    else:
+
+        form = InterviewForm(
+            instance=interview,
+            user=request.user
+        )
+
+    return render(
+        request,
+        'applications/interview_form.html',
+        {
+            'form': form,
+            'page_title': 'Edit Interview',
+            'interview': interview,
+        }
+    )
+
+
+@login_required
+def delete_interview_view(request, pk):
+
+    interview = get_object_or_404(
+        Interview,
+        pk=pk,
+        application__user=request.user
+    )
+
+    if request.method == 'POST':
+
+        interview.delete()
+
+        messages.success(
+            request,
+            'Interview deleted successfully.'
+        )
+
+        return redirect(
+            'interview_list'
+        )
+
+    return redirect(
+        'interview_list'
+    )

@@ -223,7 +223,7 @@ Interviews | JobTrackr
 
 
                             <a
-                                href="#"
+                                href="{% url 'interview_detail' interview.pk %}"
                                 class="interview-action"
                                 title="View"
                             >
@@ -232,7 +232,7 @@ Interviews | JobTrackr
 
 
                             <a
-                                href="#"
+                                href="{% url 'interview_edit' interview.pk %}"
                                 class="interview-action"
                                 title="Edit"
                             >
@@ -244,6 +244,9 @@ Interviews | JobTrackr
                                 type="button"
                                 class="interview-action delete-interview"
                                 title="Delete"
+                                data-id="{{ interview.pk }}"
+                                data-company="{{ interview.application.company_name }}"
+                                data-role="{{ interview.application.job_title }}"
                             >
                                 ♧
                             </button>
@@ -289,5 +292,201 @@ Interviews | JobTrackr
     </div>
 
 </div>
+
+<div
+    class="delete-modal-overlay"
+    id="deleteInterviewModal"
+>
+
+    <div class="delete-modal">
+
+        <button
+            type="button"
+            class="modal-close"
+            id="closeInterviewDelete"
+        >
+            ×
+        </button>
+
+
+        <div class="delete-modal-icon">
+            !
+        </div>
+
+
+        <h2>
+            Delete Interview?
+        </h2>
+
+
+        <p>
+
+            Are you sure you want to delete the
+            interview for
+
+            <strong id="deleteInterviewName">
+                this application
+            </strong>?
+
+        </p>
+
+
+        <span class="delete-warning">
+            This action cannot be undone.
+        </span>
+
+
+        <form
+            method="POST"
+            id="deleteInterviewForm"
+        >
+
+            {% csrf_token %}
+
+            <div class="delete-modal-actions">
+
+                <button
+                    type="button"
+                    class="modal-cancel-btn"
+                    id="cancelInterviewDelete"
+                >
+                    Cancel
+                </button>
+
+
+                <button
+                    type="submit"
+                    class="modal-delete-btn"
+                >
+                    Delete Interview
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script>
+
+const interviewDeleteButtons =
+    document.querySelectorAll(
+        ".delete-interview"
+    );
+
+const interviewDeleteModal =
+    document.getElementById(
+        "deleteInterviewModal"
+    );
+
+const interviewDeleteForm =
+    document.getElementById(
+        "deleteInterviewForm"
+    );
+
+const deleteInterviewName =
+    document.getElementById(
+        "deleteInterviewName"
+    );
+
+const closeInterviewDelete =
+    document.getElementById(
+        "closeInterviewDelete"
+    );
+
+const cancelInterviewDelete =
+    document.getElementById(
+        "cancelInterviewDelete"
+    );
+
+
+interviewDeleteButtons.forEach(button => {
+
+    button.addEventListener(
+        "click",
+        () => {
+
+            const id =
+                button.dataset.id;
+
+            const company =
+                button.dataset.company;
+
+            const role =
+                button.dataset.role;
+
+
+            deleteInterviewName.textContent =
+                `${role} at ${company}`;
+
+
+            interviewDeleteForm.action =
+                `/applications/interviews/${id}/delete/`;
+
+
+            interviewDeleteModal.classList.add(
+                "show"
+            );
+
+        }
+    );
+
+});
+
+
+function closeInterviewModal() {
+
+    interviewDeleteModal.classList.remove(
+        "show"
+    );
+
+}
+
+
+closeInterviewDelete.addEventListener(
+    "click",
+    closeInterviewModal
+);
+
+
+cancelInterviewDelete.addEventListener(
+    "click",
+    closeInterviewModal
+);
+
+
+interviewDeleteModal.addEventListener(
+    "click",
+    event => {
+
+        if (
+            event.target ===
+            interviewDeleteModal
+        ) {
+
+            closeInterviewModal();
+
+        }
+
+    }
+);
+
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if (event.key === "Escape") {
+
+            closeInterviewModal();
+
+        }
+
+    }
+);
+
+</script>
 
 {% endblock %}

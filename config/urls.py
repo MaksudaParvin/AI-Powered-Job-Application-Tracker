@@ -20,7 +20,8 @@ from accounts.views import (register_view, login_view, logout_view)
 from applications.views import (create_application_view, application_list_view,
                                  application_detail_view, edit_application_view,
                                  delete_application_view, dashboard_view, 
-                                 interview_list_view, create_interview_view)
+                                 interview_list_view, create_interview_view,
+                                 interview_detail_view, edit_interview_view, delete_interview_view)
 
 urlpatterns = [
 
@@ -47,5 +48,11 @@ urlpatterns = [
     path('interview_list/', interview_list_view,  name='interview_list'),   
 
     path('interviews/create/', create_interview_view, name='interview_create'),
+
+    path('interviews/<int:pk>/', interview_detail_view, name='interview_detail'),
+
+    path('interviews/<int:pk>/edit/', edit_interview_view, name='interview_edit'),
+
+    path('interviews/<int:pk>/delete/', delete_interview_view, name='interview_delete' ),
 
 ]
