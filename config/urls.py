@@ -21,7 +21,9 @@ from applications.views import (create_application_view, application_list_view,
                                  application_detail_view, edit_application_view,
                                  delete_application_view, dashboard_view, 
                                  interview_list_view, create_interview_view,
-                                 interview_detail_view, edit_interview_view, delete_interview_view)
+                                 interview_detail_view, edit_interview_view, 
+                                 delete_interview_view, 
+                                 AIJobAnalysisAPIView, ai_analysis_page)
 
 urlpatterns = [
 
@@ -54,5 +56,9 @@ urlpatterns = [
     path('interviews/<int:pk>/edit/', edit_interview_view, name='interview_edit'),
 
     path('interviews/<int:pk>/delete/', delete_interview_view, name='interview_delete' ),
+
+    path('api/ai/analyze/', AIJobAnalysisAPIView.as_view(), name='ai_job_analysis'),
+
+    path('applications/<int:pk>/ai-analysis/', ai_analysis_page, name='ai_analysis'),
 
 ]

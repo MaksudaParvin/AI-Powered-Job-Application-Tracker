@@ -12,6 +12,15 @@ from django.db.models import Q, Count
 from django.utils import timezone
 
 
+# IMPORT DEPENDENCIES FOR OPENAI AND DRF
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+
+from .serializers import (JobDescriptionAnalysisSerializer)
+from .ai_service import (analyze_job_description)
+
+
 @login_required
 def create_application_view(request):
 
@@ -525,4 +534,71 @@ def delete_interview_view(request, pk):
 
     return redirect(
         'interview_list'
+    )
+
+
+
+# VIEW FOR AI JOB ANALYSIS
+class AIJobAnalysisAPIView(APIView):
+
+    def post(self, request):
+
+        serializer = JobDescriptionAnalysisSerializer(
+            data=request.data
+        )
+
+
+        if not serializer.is_valid():
+
+            return Response(
+                serializer.errors,
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+
+        job_description = serializer.validated_data[
+            'job_description'
+        ]
+
+
+        try:
+
+            analysis = analyze_job_description(
+                job_description
+            )
+
+
+            return Response(
+                analysis,
+                status=status.HTTP_200_OK
+            )
+
+
+        except Exception as e:
+
+            return Response(
+                {
+                    'error':
+                        'Unable to analyze the job description.'
+                },
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
+
+
+@login_required
+def ai_analysis_page(request, pk):
+
+    application = get_object_or_404(
+        JobApplication,
+        pk=pk,
+        user=request.user
+    )
+
+    return render(
+        request,
+        'applications/ai_analysis.html',
+        {
+            'application': application
+        }
     )

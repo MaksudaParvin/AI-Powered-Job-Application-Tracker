@@ -1,0 +1,400 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}
+AI Analysis | JobTrackr
+{% endblock %}
+
+
+{% block content %}
+
+<div class="ai-analysis-page">
+
+
+    <!-- ========================================
+         HEADER
+    ======================================== -->
+
+    <div class="ai-page-header">
+
+        <div>
+
+            <a
+                href="{% url 'application_list' %}"
+                class="back-link"
+            >
+                ← Back to Applications
+            </a>
+
+
+            <div class="ai-title-row">
+
+                <div class="ai-title-icon">
+                    ✦
+                </div>
+
+
+                <div>
+
+                    <h1>
+                        AI Job Analysis
+                    </h1>
+
+                    <p>
+                        Analyze this job description
+                        with AI-powered insights.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ========================================
+         APPLICATION INFO
+    ======================================== -->
+
+    <div class="ai-application-card">
+
+
+        <div class="application-main-info">
+
+            <div class="company-avatar-large">
+
+                {{ application.company_name|first|upper }}
+
+            </div>
+
+
+            <div>
+
+                <h2>
+                    {{ application.job_title }}
+                </h2>
+
+                <p>
+                    {{ application.company_name }}
+                </p>
+
+            </div>
+
+        </div>
+
+
+        {% if application.location %}
+
+            <span class="application-location">
+
+                {{ application.location }}
+
+            </span>
+
+        {% endif %}
+
+
+    </div>
+
+
+    <!-- ========================================
+         JOB DESCRIPTION
+    ======================================== -->
+
+    <div class="ai-input-card">
+
+
+        <div class="section-header">
+
+            <div>
+
+                <h2>
+                    Job Description
+                </h2>
+
+                <p>
+                    Review the description before
+                    running the AI analysis.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="job-description-box"
+            id="jobDescription"
+        >
+
+            {{ application.job_description }}
+
+        </div>
+
+
+        <div class="analysis-action">
+
+            <button
+                type="button"
+                id="analyzeButton"
+                class="analyze-btn"
+            >
+
+                <span id="analyzeIcon">
+                    ✦
+                </span>
+
+                <span id="analyzeText">
+                    Analyze with AI
+                </span>
+
+            </button>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- ========================================
+         LOADING
+    ======================================== -->
+
+    <div
+        id="analysisLoading"
+        class="analysis-loading"
+    >
+
+        <div class="loading-spinner"></div>
+
+        <h3>
+            Analyzing job description...
+        </h3>
+
+        <p>
+            AI is extracting skills, experience,
+            technologies and interview topics.
+        </p>
+
+    </div>
+
+
+    <!-- ========================================
+         ERROR
+    ======================================== -->
+
+    <div
+        id="analysisError"
+        class="analysis-error"
+    >
+
+        <strong>
+            Analysis failed
+        </strong>
+
+        <p id="errorMessage">
+            Something went wrong.
+        </p>
+
+    </div>
+
+
+    <!-- ========================================
+         AI RESULT
+    ======================================== -->
+
+    <div
+        id="analysisResult"
+        class="analysis-result"
+    >
+
+
+        <!-- SUMMARY -->
+
+        <div class="result-card summary-card">
+
+            <div class="result-card-header">
+
+                <div class="result-icon">
+                    ◈
+                </div>
+
+                <div>
+
+                    <h2>
+                        Job Summary
+                    </h2>
+
+                    <p>
+                        AI-generated overview of the role
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <p
+                id="summary"
+                class="summary-text"
+            ></p>
+
+        </div>
+
+
+        <!-- TWO COLUMN -->
+
+        <div class="analysis-grid">
+
+
+            <!-- REQUIRED SKILLS -->
+
+            <div class="result-card">
+
+                <div class="result-card-header">
+
+                    <div class="result-icon">
+                        ✓
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Required Skills
+                        </h2>
+
+                        <p>
+                            Key skills identified
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="requiredSkills"
+                    class="tag-list"
+                ></div>
+
+            </div>
+
+
+            <!-- TECHNOLOGIES -->
+
+            <div class="result-card">
+
+                <div class="result-card-header">
+
+                    <div class="result-icon">
+                        #
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Technologies
+                        </h2>
+
+                        <p>
+                            Tools and technologies
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="technologies"
+                    class="tag-list"
+                ></div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- EXPERIENCE -->
+
+        <div class="result-card">
+
+            <div class="result-card-header">
+
+                <div class="result-icon">
+                    ◷
+                </div>
+
+                <div>
+
+                    <h2>
+                        Required Experience
+                    </h2>
+
+                    <p>
+                        Experience expectations
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <p
+                id="requiredExperience"
+                class="experience-text"
+            ></p>
+
+        </div>
+
+
+        <!-- INTERVIEW PREPARATION -->
+
+        <div class="result-card preparation-card">
+
+            <div class="result-card-header">
+
+                <div class="result-icon">
+                    ★
+                </div>
+
+                <div>
+
+                    <h2>
+                        Interview Preparation
+                    </h2>
+
+                    <p>
+                        Topics you should prepare for
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="interviewPreparation"
+                class="preparation-list"
+            ></div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<!-- =========================================
+      JS
+========================================= -->
+
+<script src="{% static 'js/ai_analysis.js' %}"></script>
+
+
+{% endblock %}
