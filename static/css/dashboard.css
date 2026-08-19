@@ -61,8 +61,8 @@ a {
 }
 
 .brand-icon {
-    width: 27px;
-    height: 27px;
+    width: 30px;
+    height: 30px;
 
     background: #625cf0;
 
@@ -82,12 +82,12 @@ a {
 
 .brand-info h2 {
     font-family: Georgia, "Times New Roman", serif;
-    font-size: 14px;
+    font-size: 15px;
 }
 
 .brand-info span {
     font-family: monospace;
-    font-size: 7px;
+    font-size: 9px;
     letter-spacing: 1.3px;
     color: #737bc3;
 }
@@ -127,12 +127,12 @@ a {
 
     color: white;
 
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 600;
 }
 
 .plus-icon {
-    font-size: 17px;
+    font-size: 18px;
 }
 
 
@@ -140,6 +140,7 @@ a {
 
 .sidebar-nav {
     padding: 0 7px;
+    padding-top: 20px;
 }
 
 .nav-item {
@@ -212,8 +213,8 @@ a {
 }
 
 .user-avatar {
-    width: 27px;
-    height: 27px;
+    width: 30px;
+    height: 30px;
 
     flex-shrink: 0;
 
@@ -260,7 +261,7 @@ a {
 
     font-family: monospace;
 
-    font-size: 7px;
+    font-size: 9px;
 }
 
 .logout-btn {

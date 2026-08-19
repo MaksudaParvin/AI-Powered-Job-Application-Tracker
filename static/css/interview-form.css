@@ -14,22 +14,22 @@
 }
 
 
-.interview-form-header h1 {
+.interview-form-top h1 {
 
     font-family:
         Georgia,
         "Times New Roman",
         serif;
 
-    font-size: 28px;
+    font-size: 25px;
 
     color: #f0eee9;
 
-    margin-bottom: 6px;
+    margin-bottom: 12px;
 }
 
 
-.interview-form-header p {
+.interview-form-top p {
 
     color: #7180ad;
 

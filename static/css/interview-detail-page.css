@@ -1,0 +1,395 @@
+/* =========================================================
+   INTERVIEW DETAIL PAGE
+   Scoped only to .interview-detail-page
+========================================================= */
+
+.interview-detail-page {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 10px 0px 0px;
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   BACK LINK
+========================================================= */
+
+.interview-detail-page .back-link {
+    display: inline-flex;
+
+    align-items: center;
+
+    margin-bottom: 22px;
+
+    color: #6979ad;
+
+    font-size: 12px;
+
+    text-decoration: none;
+
+    transition: color .2s ease;
+}
+
+
+.interview-detail-page .back-link:hover {
+    color: #7d83f2;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.interview-detail-page .interview-detail-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 25px;
+
+    margin-bottom: 25px;
+}
+
+
+/* =========================================================
+   COMPANY / TITLE
+========================================================= */
+
+.interview-detail-page .interview-detail-header > div:first-child {
+    min-width: 0;
+}
+
+
+.interview-detail-page .interview-detail-company {
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 13px;
+
+    border-radius: 12px;
+
+    background: #171f3c;
+
+    color: #777ef1;
+
+    font-size: 17px;
+
+    font-weight: 600;
+}
+
+
+.interview-detail-page .interview-detail-header h1 {
+    margin: 0;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: 29px;
+
+    line-height: 1.2;
+
+    color: #f0eee9;
+}
+
+
+.interview-detail-page .interview-detail-header p {
+    margin: 7px 0 0;
+
+    color: #7180b4;
+
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   ACTIONS
+========================================================= */
+
+.interview-detail-page .detail-actions {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    flex-shrink: 0;
+}
+
+
+.interview-detail-page .detail-action {
+    height: 36px;
+
+    padding: 0 14px;
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 6px;
+
+    border: 1px solid #29365d;
+
+    border-radius: 7px;
+
+    background: #11182b;
+
+    color: #7886b2;
+
+    font-size: 11px;
+
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition: .2s ease;
+}
+
+
+.interview-detail-page .detail-action:hover {
+    border-color: #3a4770;
+
+    background: #151d34;
+
+    color: #8a94c7;
+}
+
+
+/* =========================================================
+   MAIN GRID
+========================================================= */
+
+.interview-detail-page .interview-detail-grid {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1.5fr)
+        minmax(300px, 1fr);
+
+    gap: 18px;
+
+    width: 100%;
+}
+
+
+/* =========================================================
+   DETAIL CARD
+========================================================= */
+
+.interview-detail-page .detail-card {
+    min-width: 0;
+
+    padding: 24px;
+
+    box-sizing: border-box;
+
+    background: #101627;
+
+    border: 1px solid #222d51;
+
+    border-radius: 12px;
+}
+
+
+.interview-detail-page .detail-card h2 {
+    margin: 0 0 20px;
+
+    color: #e9ebf4;
+
+    font-size: 15px;
+
+    font-weight: 550;
+}
+
+
+/* =========================================================
+   INFO ITEM
+========================================================= */
+
+.interview-detail-page .info-item {
+    padding: 12px 0;
+
+    border-bottom: 1px solid #1e2742;
+}
+
+
+.interview-detail-page .info-item:first-of-type {
+    padding-top: 0;
+}
+
+
+.interview-detail-page .info-item:last-child {
+    padding-bottom: 0;
+
+    border-bottom: none;
+}
+
+
+.interview-detail-page .info-item span {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #63719d;
+
+    font-family: monospace;
+
+    font-size: 9px;
+
+    letter-spacing: .9px;
+}
+
+
+.interview-detail-page .info-item strong {
+    display: block;
+
+    color: #dce0eb;
+
+    font-size: 12px;
+
+    font-weight: 500;
+}
+
+
+/* =========================================================
+   MEETING LINK
+========================================================= */
+
+.interview-detail-page .info-item a {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+    color: #7279ed;
+
+    font-size: 11px;
+
+    text-decoration: none;
+
+    transition: color .2s ease;
+}
+
+
+.interview-detail-page .info-item a:hover {
+    color: #8a8fff;
+
+    text-decoration: underline;
+}
+
+
+/* =========================================================
+   INTERVIEW NOTES
+========================================================= */
+
+.interview-detail-page .interview-notes {
+    color: #8792b4;
+
+    font-size: 12px;
+
+    line-height: 1.8;
+}
+
+
+.interview-detail-page .interview-notes p {
+    margin: 0 0 10px;
+}
+
+
+.interview-detail-page .interview-notes p:last-child {
+    margin-bottom: 0;
+}
+
+
+.interview-detail-page .muted {
+    margin: 0;
+
+    color: #5f6d96;
+
+    font-size: 11px;
+
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 850px) {
+
+    .interview-detail-page {
+        padding: 25px 22px 40px;
+    }
+
+
+    .interview-detail-page .interview-detail-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+@media (max-width: 650px) {
+
+    .interview-detail-page {
+        padding: 20px 16px 35px;
+    }
+
+
+    .interview-detail-page .interview-detail-header {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 15px;
+    }
+
+
+    .interview-detail-page .detail-actions {
+        width: 100%;
+    }
+
+
+    .interview-detail-page .detail-action {
+        flex: 1;
+    }
+
+
+    .interview-detail-page .interview-detail-header h1 {
+        font-size: 24px;
+    }
+
+
+    .interview-detail-page .detail-card {
+        padding: 20px;
+    }
+
+}
+
+
+@media (max-width: 450px) {
+
+    .interview-detail-page .interview-detail-company {
+        width: 42px;
+        height: 42px;
+    }
+
+
+    .interview-detail-page .interview-detail-header h1 {
+        font-size: 21px;
+    }
+
+}
