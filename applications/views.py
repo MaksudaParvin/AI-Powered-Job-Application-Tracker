@@ -598,3 +598,19 @@ def ai_analysis_page(request, pk):
             'application': application
         }
     )
+
+
+@login_required
+def ai_analysis_list(request):
+
+    applications = JobApplication.objects.filter(
+        user=request.user
+    ).order_by("-application_date")
+
+    return render(
+        request,
+        "applications/ai_analysis_list.html",
+        {
+            "applications": applications
+        }
+    )

@@ -51,7 +51,10 @@
         </a>
 
 
-        <a href="#" class="nav-item ai-link">
+        <a href="{% url 'ai_analysis_list' %}"
+            class="nav-item ai-link {% if request.resolver_match.url_name == 'ai_analysis_list' or request.resolver_match.url_name == 'ai_analysis' %}active{% endif %}"
+        
+        >
 
             <span class="nav-icon">✦</span>
             <span>AI Analysis</span>

@@ -10,7 +10,7 @@
 
     align-items: flex-end;
 
-    margin-bottom: 25px;
+    margin-bottom: 30px;
 }
 
 
@@ -22,7 +22,9 @@
 
     color: #6979ad;
 
-    font-size: 11px;
+    font-size: 12px;
+
+    padding-bottom: 20px;
 }
 
 
@@ -73,7 +75,7 @@
         "Times New Roman",
         serif;
 
-    font-size: 28px;
+    font-size: 25px;
 
     color: #f0eee9;
 }
@@ -81,7 +83,7 @@
 
 .detail-title p {
 
-    margin-top: 5px;
+    margin-top: 9px;
 
     color: #7180b4;
 

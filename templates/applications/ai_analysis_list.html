@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+AI Analysis | JobTrackr
+{% endblock %}
+
+{% block content %}
+
+<div class="ai-list-page">
+
+    <!-- Header -->
+    <div class="ai-list-header">
+
+        <div>
+            <h1>AI Job Analysis</h1>
+
+            <p>
+                Select a job application to analyze with AI-powered insights.
+            </p>
+        </div>
+
+    </div>
+
+
+    <!-- Applications -->
+    <div class="ai-application-grid">
+
+        {% for application in applications %}
+
+        <div class="ai-application-card">
+
+            {% comment %} <!-- Top -->
+            <div class="ai-card-top">
+
+                <div class="ai-company-avatar">
+                    {{ application.company_name|first|upper }}
+                </div>
+
+                <span class="ai-sparkle">
+                    ✦
+                </span>
+
+            </div> {% endcomment %}
+
+
+            <!-- Information -->
+            <div class="ai-card-info">
+
+                <h2>
+                    {{ application.job_title }}
+                </h2>
+
+                <p class="ai-company">
+                    {{ application.company_name }}
+                </p>
+
+                {% if application.location %}
+                <p class="ai-location">
+                    ◉ {{ application.location }}
+                </p>
+                {% endif %}
+
+            </div>
+
+
+            <!-- Footer -->
+            <div class="ai-card-footer">
+
+                <span class="ai-status">
+                    {{ application.status }}
+                </span>
+
+                <a
+                    href="{% url 'ai_analysis' application.pk %}"
+                    class="ai-analyze-btn"
+                >
+                    <span>✦</span>
+                    Analyze
+                </a>
+
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <div class="ai-empty-state">
+
+            <div class="empty-icon">
+                ✦
+            </div>
+
+            <h2>No applications yet</h2>
+
+            <p>
+                Add a job application first to start using AI analysis.
+            </p>
+
+            <a
+                href="{% url 'application_create' %}"
+                class="add-application-btn"
+            >
+                + Add Application
+            </a>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -23,7 +23,7 @@ from applications.views import (create_application_view, application_list_view,
                                  interview_list_view, create_interview_view,
                                  interview_detail_view, edit_interview_view, 
                                  delete_interview_view, 
-                                 AIJobAnalysisAPIView, ai_analysis_page)
+                                 AIJobAnalysisAPIView, ai_analysis_page, ai_analysis_list)
 
 urlpatterns = [
 
@@ -60,5 +60,7 @@ urlpatterns = [
     path('applications/api/ai/analyze/', AIJobAnalysisAPIView.as_view(), name='ai_job_analysis'),
 
     path('applications/<int:pk>/ai-analysis/', ai_analysis_page, name='ai_analysis'),
+
+    path('applications/ai-analysis/', ai_analysis_list, name='ai_analysis_list'),
 
 ]

@@ -1,0 +1,602 @@
+/* ========================================
+   AI ANALYSIS LIST PAGE ONLY
+======================================== */
+
+.ai-list-page {
+    padding: 32px 36px;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+
+/* ========================================
+   HEADER
+======================================== */
+
+.ai-list-page .ai-list-header {
+    margin-bottom: 28px;
+}
+
+.ai-list-page .ai-list-header h1 {
+    margin: 0;
+    color: #f4f5fa;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 38px;
+    font-weight: 700;
+    line-height: 1.15;
+}
+
+.ai-list-page .ai-list-header p {
+    margin: 8px 0 0;
+    color: #7382b8;
+    font-size: 14px;
+}
+
+
+/* ========================================
+   APPLICATION GRID
+======================================== */
+
+.ai-list-page .ai-application-grid {
+    display: grid;
+
+    /*
+       IMPORTANT:
+       Card আর পুরো screen জুড়ে stretch করবে না.
+    */
+    grid-template-columns:
+        repeat(auto-fill, minmax(320px, 360px));
+
+    gap: 20px;
+
+    align-items: start;
+}
+
+
+/* ========================================
+   APPLICATION CARD
+======================================== */
+
+.ai-list-page .ai-application-card {
+    width: 100%;
+    min-height: 235px;
+
+    box-sizing: border-box;
+
+    padding: 22px;
+
+    display: flex;
+    flex-direction: column;
+
+    background: #101528;
+    border: 1px solid #252f52;
+    border-radius: 14px;
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.ai-list-page .ai-application-card:hover {
+    transform: translateY(-3px);
+
+    border-color: #555df6;
+
+    box-shadow:
+        0 14px 32px rgba(0, 0, 0, 0.28);
+}
+
+
+/* ========================================
+   CARD TOP
+======================================== */
+
+.ai-list-page .ai-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.ai-list-page .ai-company-avatar {
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 11px;
+
+    background: #192044;
+    color: #7378ff;
+
+    font-size: 18px;
+    font-weight: 600;
+}
+
+
+.ai-list-page .ai-sparkle {
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 9px;
+
+    background: #191c45;
+    color: #7478ff;
+
+    font-size: 16px;
+}
+
+
+/* ========================================
+   CARD INFORMATION
+======================================== */
+
+.ai-list-page .ai-card-info {
+    margin-top: 20px;
+}
+
+
+.ai-list-page .ai-card-info h2 {
+    margin: 0;
+
+    color: #f2f3f8;
+
+    font-size: 19px;
+    font-weight: 600;
+
+    line-height: 1.35;
+}
+
+
+.ai-list-page .ai-card-info .ai-company {
+    margin: 7px 0 0;
+
+    color: #8796c9;
+
+    font-size: 14px;
+}
+
+
+.ai-list-page .ai-card-info .ai-location {
+    margin: 9px 0 0;
+
+    color: #6878ae;
+
+    font-size: 13px;
+}
+
+
+/* ========================================
+   CARD FOOTER
+======================================== */
+
+.ai-list-page .ai-card-footer {
+    margin-top: auto;
+    padding-top: 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    border-top: 1px solid #202944;
+}
+
+
+/* ========================================
+   STATUS
+======================================== */
+
+.ai-list-page .ai-status {
+    display: inline-flex;
+    align-items: center;
+
+    padding: 5px 10px;
+
+    border-radius: 20px;
+
+    background: #18253c;
+    color: #7e8fc7;
+
+    font-size: 11px;
+    font-weight: 500;
+
+    text-transform: capitalize;
+}
+
+
+/* ========================================
+   ANALYZE BUTTON
+======================================== */
+
+.ai-list-page .ai-analyze-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    padding: 9px 14px;
+
+    border: 0;
+    border-radius: 8px;
+
+    background: #6366f1;
+    color: #ffffff;
+
+    text-decoration: none;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.ai-list-page .ai-analyze-btn:hover {
+    background: #7477ff;
+    color: #ffffff;
+
+    transform: translateY(-1px);
+}
+
+
+.ai-list-page .ai-analyze-btn span {
+    font-size: 14px;
+}
+
+
+/* ========================================
+   EMPTY STATE
+======================================== */
+
+.ai-list-page .ai-empty-state {
+    grid-column: 1 / -1;
+
+    min-height: 300px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    padding: 30px;
+
+    box-sizing: border-box;
+
+    background: #101528;
+    border: 1px solid #252f52;
+    border-radius: 14px;
+
+    text-align: center;
+}
+
+
+.ai-list-page .empty-icon {
+    width: 52px;
+    height: 52px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 15px;
+
+    border-radius: 13px;
+
+    background: #1b2050;
+    color: #7378ff;
+
+    font-size: 23px;
+}
+
+
+.ai-list-page .ai-empty-state h2 {
+    margin: 0;
+
+    color: #eef0f8;
+
+    font-size: 20px;
+}
+
+
+.ai-list-page .ai-empty-state p {
+    margin: 8px 0 20px;
+
+    color: #7180b5;
+
+    font-size: 14px;
+}
+
+
+.ai-list-page .add-application-btn {
+    display: inline-flex;
+
+    padding: 10px 16px;
+
+    border-radius: 8px;
+
+    background: #6366f1;
+    color: #ffffff;
+
+    text-decoration: none;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+
+@media (max-width: 850px) {
+
+    .ai-list-page {
+        padding: 25px 20px;
+    }
+
+    .ai-list-page .ai-application-grid {
+        grid-template-columns: minmax(280px, 360px);
+    }
+
+}
+
+
+@media (max-width: 500px) {
+
+    .ai-list-page {
+        padding: 20px 15px;
+    }
+
+    .ai-list-page .ai-application-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .ai-list-page .ai-application-card {
+        min-height: 220px;
+    }
+
+}
+
+/* ========================================
+   FINAL FIX - AI ANALYSIS LIST ONLY
+======================================== */
+
+/* Card itself */
+.ai-list-page .ai-application-card {
+    width: 350px !important;
+    min-height: 200px !important;
+    padding: 20px !important;
+    box-sizing: border-box !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    background: #101528 !important;
+    border: 1px solid #29345a !important;
+    border-radius: 16px !important;
+}
+
+
+/* ========================================
+   TOP ICONS
+======================================== */
+
+/* .ai-list-page .ai-card-top {
+    width: 100% !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+
+    gap: 12px !important;
+}
+
+
+.ai-list-page .ai-company-avatar {
+    width: 52px !important;
+    height: 52px !important;
+
+    flex: 0 0 52px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    margin: 0 !important;
+
+    border-radius: 12px !important;
+
+    background: #1b2550 !important;
+    color: #7378ff !important;
+
+    font-size: 19px !important;
+}
+
+
+.ai-list-page .ai-sparkle {
+    width: 40px !important;
+    height: 40px !important;
+
+    flex: 0 0 40px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    margin: 0 !important;
+
+    border-radius: 10px !important;
+
+    background: #1b2050 !important;
+    color: #777aff !important;
+
+    font-size: 17px !important;
+} */
+
+
+/* ========================================
+   CARD CONTENT
+======================================== */
+
+.ai-list-page .ai-card-info {
+    width: 100% !important;
+
+    margin-top: 6px !important;
+}
+
+
+.ai-list-page .ai-card-info h2 {
+    margin: 0 !important;
+
+    color: #f2f3f8 !important;
+
+    font-size: 17px !important;
+    font-weight: 600 !important;
+
+    line-height: 1.35 !important;
+}
+
+
+.ai-list-page .ai-card-info .ai-company {
+    margin: 7px 0 0 !important;
+
+    color: #8796c9 !important;
+
+    font-size: 14px !important;
+}
+
+
+.ai-list-page .ai-card-info .ai-location {
+    margin: 8px 0 0 !important;
+
+    color: #6f80b7 !important;
+
+    font-size: 11px !important;
+}
+
+
+/* ========================================
+   FOOTER
+======================================== */
+
+.ai-list-page .ai-card-footer {
+    width: 100% !important;
+
+    margin-top: auto !important;
+    padding-top: 18px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    /* gap: 12px !important; */
+
+    border-top: 1px solid #252e4d !important;
+}
+
+
+/* ========================================
+   STATUS
+======================================== */
+
+.ai-list-page .ai-status {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    flex-shrink: 0 !important;
+
+    padding: 4px 9px !important;
+
+    border-radius: 20px !important;
+
+    background: #182642 !important;
+    color: #8193ce !important;
+
+    font-size: 12px !important;
+    font-weight: 500 !important;
+
+    white-space: nowrap !important;
+}
+
+
+/* ========================================
+   ANALYZE BUTTON
+======================================== */
+
+.ai-list-page .ai-analyze-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    flex-shrink: 0 !important;
+
+    gap: 7px !important;
+
+    padding: 5px 11px !important;
+
+    margin: 0 !important;
+
+    border-radius: 9px !important;
+
+    background: #6366f1 !important;
+    color: #ffffff !important;
+
+    text-decoration: none !important;
+
+    font-size: 12px !important;
+    font-weight: 550 !important;
+
+    white-space: nowrap !important;
+}
+
+
+.ai-list-page .ai-analyze-btn:hover {
+    background: #7477ff !important;
+    color: #ffffff !important;
+}
+
+
+/* ========================================
+   GRID
+======================================== */
+
+.ai-list-page .ai-application-grid {
+    display: grid !important;
+
+    grid-template-columns:
+        repeat(auto-fill, 450px) !important;
+
+    gap: 22px !important;
+
+    align-items: start !important;
+}
+
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+
+@media (max-width: 600px) {
+
+    .ai-list-page .ai-application-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .ai-list-page .ai-application-card {
+        width: 100% !important;
+    }
+
+}
