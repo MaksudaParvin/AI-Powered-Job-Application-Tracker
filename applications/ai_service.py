@@ -1,63 +1,77 @@
+from google import genai
+from google.genai import types
+from django.conf import settings
 import json
 
-from django.conf import settings
-from openai import OpenAI
 
-
-client = OpenAI(
-    api_key=settings.OPENAI_API_KEY
+client = genai.Client(
+    api_key=settings.GEMINI_API_KEY
 )
 
 
 def analyze_job_description(job_description):
 
     prompt = f"""
-You are an expert career assistant.
+You are an expert technical recruiter.
 
-Analyze the following job description.
+Analyze this job description and provide useful information
+for a job seeker.
 
-Return ONLY valid JSON with exactly these fields:
-
-{{
-    "summary": "",
-    "required_skills": [],
-    "required_experience": "",
-    "technologies": [],
-    "interview_preparation": []
-}}
-
-Rules:
-
-- summary: concise summary of the role
-- required_skills: important skills required for the job
-- required_experience: experience requirements
-- technologies: programming languages, frameworks, tools, databases, platforms, etc.
-- interview_preparation: practical topics the candidate should prepare for
-- Do not invent information that is not reasonably supported by the job description.
-
-Job Description:
-
+JOB DESCRIPTION:
 {job_description}
 """
 
+    response = client.models.generate_content(
+        model="gemini-3.5-flash-lite",
+        contents=prompt,
 
-    response = client.responses.create(
+        config=types.GenerateContentConfig(
+            response_mime_type="application/json",
 
-        model="gpt-5.6-luna",
+            response_schema={
+                "type": "object",
 
-        input=prompt
+                "properties": {
+
+                    "summary": {
+                        "type": "string"
+                    },
+
+                    "required_skills": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+
+                    "required_experience": {
+                        "type": "string"
+                    },
+
+                    "technologies": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+
+                    "interview_preparation": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                },
+
+                "required": [
+                    "summary",
+                    "required_skills",
+                    "required_experience",
+                    "technologies",
+                    "interview_preparation"
+                ]
+            }
+        )
     )
 
-
-    result = response.output_text.strip()
-
-
-    try:
-
-        return json.loads(result)
-
-    except json.JSONDecodeError:
-
-        raise ValueError(
-            "AI returned an invalid response format."
-        )
+    return json.loads(response.text)

@@ -539,6 +539,7 @@ def delete_interview_view(request, pk):
 
 
 # VIEW FOR AI JOB ANALYSIS
+
 class AIJobAnalysisAPIView(APIView):
 
     def post(self, request):
@@ -547,7 +548,6 @@ class AIJobAnalysisAPIView(APIView):
             data=request.data
         )
 
-
         if not serializer.is_valid():
 
             return Response(
@@ -555,11 +555,9 @@ class AIJobAnalysisAPIView(APIView):
                 status=status.HTTP_400_BAD_REQUEST
             )
 
-
         job_description = serializer.validated_data[
-            'job_description'
+            "job_description"
         ]
-
 
         try:
 
@@ -567,23 +565,21 @@ class AIJobAnalysisAPIView(APIView):
                 job_description
             )
 
-
             return Response(
                 analysis,
                 status=status.HTTP_200_OK
             )
 
-
         except Exception as e:
+
+            print("GEMINI ERROR:", repr(e))
 
             return Response(
                 {
-                    'error':
-                        'Unable to analyze the job description.'
+                    "error": str(e)
                 },
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
-
 
 
 @login_required

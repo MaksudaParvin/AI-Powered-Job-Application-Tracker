@@ -9,6 +9,8 @@ AI Analysis | JobTrackr
 
 {% block content %}
 
+{% csrf_token %}
+
 <div class="ai-analysis-page">
 
 
@@ -393,6 +395,10 @@ AI Analysis | JobTrackr
 <!-- =========================================
       JS
 ========================================= -->
+
+<script>
+    const AI_ANALYSIS_URL = "{% url 'ai_job_analysis' %}";
+</script>
 
 <script src="{% static 'js/ai_analysis.js' %}"></script>
 

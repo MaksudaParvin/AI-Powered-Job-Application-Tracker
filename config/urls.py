@@ -57,7 +57,7 @@ urlpatterns = [
 
     path('interviews/<int:pk>/delete/', delete_interview_view, name='interview_delete' ),
 
-    path('api/ai/analyze/', AIJobAnalysisAPIView.as_view(), name='ai_job_analysis'),
+    path('applications/api/ai/analyze/', AIJobAnalysisAPIView.as_view(), name='ai_job_analysis'),
 
     path('applications/<int:pk>/ai-analysis/', ai_analysis_page, name='ai_analysis'),
 

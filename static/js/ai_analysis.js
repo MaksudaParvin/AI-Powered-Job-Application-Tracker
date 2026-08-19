@@ -294,7 +294,7 @@ document.addEventListener(
 
                     const response =
                         await fetch(
-                            "{% url 'ai_job_analysis' %}",
+                            AI_ANALYSIS_URL,
                             {
 
                                 method: "POST",
@@ -324,8 +324,24 @@ document.addEventListener(
                         );
 
 
-                    const data =
-                        await response.json();
+                    const responseText = await response.text();
+
+                    console.log("STATUS:", response.status);
+                    console.log("RESPONSE:", responseText);
+
+                    let data;
+
+                    try {
+
+                        data = JSON.parse(responseText);
+
+                    } catch (error) {
+
+                        throw new Error(
+                            `Server returned HTML instead of JSON. Status: ${response.status}`
+                        );
+
+                    }
 
 
                     if (!response.ok) {
